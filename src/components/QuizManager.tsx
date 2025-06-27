@@ -141,19 +141,19 @@ export function QuizManager() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'published': return 'bg-green-500/20 text-green-400';
-      case 'draft': return 'bg-yellow-500/20 text-yellow-400';
-      case 'archived': return 'bg-slate-500/20 text-slate-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      case 'published': return 'success';
+      case 'draft': return 'warning';
+      case 'archived': return 'secondary';
+      default: return 'secondary';
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'bg-green-500/20 text-green-400';
-      case 'medium': return 'bg-yellow-500/20 text-yellow-400';
-      case 'hard': return 'bg-red-500/20 text-red-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      case 'easy': return 'success';
+      case 'medium': return 'warning';
+      case 'hard': return 'error';
+      default: return 'secondary';
     }
   };
 
@@ -219,14 +219,18 @@ export function QuizManager() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 animate-fade-in">
+      {/* Enhanced header with better typography */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Quiz Management</h1>
-          <p className="text-gray-600 dark:text-slate-400">Create, manage, and analyze your quizzes and assessments</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
+            Quiz Management
+          </h1>
+          <p className="text-gray-600 dark:text-neutral-400 transition-colors duration-300">
+            Create, manage, and analyze your quizzes and assessments
+          </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button 
             variant="outline" 
             onClick={() => setShowQuestionBank(true)}
@@ -237,7 +241,7 @@ export function QuizManager() {
           </Button>
           <Button 
             onClick={() => setShowQuizCreator(true)}
-            className="gap-2"
+            className="gap-2 shadow-medium hover:shadow-large"
           >
             <Plus className="h-4 w-4" />
             Create Quiz
@@ -245,56 +249,72 @@ export function QuizManager() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Enhanced stats cards with better visual hierarchy */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Total Quizzes</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+              Total Quizzes
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">{quizzes.length}</div>
-            <div className="text-xs text-gray-600 dark:text-slate-400">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              {quizzes.length}
+            </div>
+            <div className="text-xs text-gray-600 dark:text-neutral-400">
               {quizzes.filter(q => q.status === 'published').length} published
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Total Attempts</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+              Total Attempts
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {quizzes.reduce((sum, q) => sum + q.attempts, 0)}
             </div>
-            <div className="text-xs text-green-400">+15% this week</div>
+            <div className="text-xs text-success-600 dark:text-success-400">
+              +15% this week
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Completion Rate</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+              Completion Rate
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {Math.round((quizzes.reduce((sum, q) => sum + q.completions, 0) / 
                 Math.max(quizzes.reduce((sum, q) => sum + q.attempts, 0), 1)) * 100)}%
             </div>
-            <div className="text-xs text-green-400">Above average</div>
+            <div className="text-xs text-success-600 dark:text-success-400">
+              Above average
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Average Score</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+              Average Score
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {Math.round(quizzes.filter(q => q.completions > 0)
                 .reduce((sum, q) => sum + q.avgScore, 0) / 
                 Math.max(quizzes.filter(q => q.completions > 0).length, 1))}%
             </div>
-            <div className="text-xs text-green-400">+3% improvement</div>
+            <div className="text-xs text-success-600 dark:text-success-400">
+              +3% improvement
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -310,7 +330,7 @@ export function QuizManager() {
           
           <div className="flex items-center gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
               <Input
                 placeholder="Search quizzes..."
                 value={searchQuery}
@@ -321,7 +341,12 @@ export function QuizManager() {
             <select
               value={filterSubject}
               onChange={(e) => setFilterSubject(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md text-gray-900 dark:text-slate-100"
+              className={cn(
+                "px-3 py-2 rounded-xl border transition-all duration-200",
+                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
+                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              )}
             >
               <option value="all">All Subjects</option>
               {subjects.map(subject => (
@@ -337,14 +362,19 @@ export function QuizManager() {
         <TabsContent value="all">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredQuizzes.map((quiz) => (
-              <Card key={quiz.id} className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 transition-colors">
+              <Card 
+                key={quiz.id} 
+                variant="elevated"
+                interactive
+                className="transition-all duration-300 hover:scale-105"
+              >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-1">
+                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                         {quiz.title}
                       </CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-slate-400 line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-neutral-400 line-clamp-2">
                         {quiz.description}
                       </p>
                     </div>
@@ -371,53 +401,53 @@ export function QuizManager() {
                 
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <Badge className={getStatusColor(quiz.status)}>
+                    <Badge variant={getStatusColor(quiz.status)}>
                       {quiz.status}
                     </Badge>
-                    <Badge className={getDifficultyColor(quiz.difficulty)}>
+                    <Badge variant={getDifficultyColor(quiz.difficulty)}>
                       {quiz.difficulty}
                     </Badge>
-                    <Badge variant="outline" className="text-gray-700 dark:text-slate-300">
+                    <Badge variant="outline" className="text-gray-700 dark:text-neutral-300">
                       {quiz.type}
                     </Badge>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-600 dark:text-slate-400">Questions</p>
-                      <p className="font-medium text-gray-900 dark:text-slate-100">{quiz.questions}</p>
+                      <p className="text-gray-600 dark:text-neutral-400">Questions</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{quiz.questions}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-slate-400">Time Limit</p>
-                      <p className="font-medium text-gray-900 dark:text-slate-100">{quiz.timeLimit}m</p>
+                      <p className="text-gray-600 dark:text-neutral-400">Time Limit</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{quiz.timeLimit}m</p>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-slate-400">Attempts</p>
-                      <p className="font-medium text-gray-900 dark:text-slate-100">{quiz.attempts}</p>
+                      <p className="text-gray-600 dark:text-neutral-400">Attempts</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{quiz.attempts}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-slate-400">Avg Score</p>
-                      <p className="font-medium text-gray-900 dark:text-slate-100">{quiz.avgScore}%</p>
+                      <p className="text-gray-600 dark:text-neutral-400">Avg Score</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{quiz.avgScore}%</p>
                     </div>
                   </div>
 
                   {quiz.status === 'published' && quiz.completions > 0 && (
                     <div className="space-y-1">
-                      <div className="flex justify-between text-xs text-gray-600 dark:text-slate-400">
+                      <div className="flex justify-between text-xs text-gray-600 dark:text-neutral-400">
                         <span>Completion Rate</span>
                         <span>{Math.round((quiz.completions / quiz.attempts) * 100)}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2">
+                      <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-2">
                         <div 
-                          className="bg-gradient-to-r from-violet-500 to-pink-500 h-2 rounded-full"
+                          className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full transition-all duration-500"
                           style={{ width: `${(quiz.completions / quiz.attempts) * 100}%` }}
                         />
                       </div>
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-slate-700">
-                    <div className="text-xs text-gray-600 dark:text-slate-400">
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-neutral-700">
+                    <div className="text-xs text-gray-600 dark:text-neutral-400">
                       <p>{quiz.subject} • {quiz.topic}</p>
                       <p>Created {quiz.createdAt}</p>
                     </div>
@@ -447,15 +477,15 @@ export function QuizManager() {
         <TabsContent value="published">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredQuizzes.filter(q => q.status === 'published').map((quiz) => (
-              <Card key={quiz.id} className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+              <Card key={quiz.id} variant="elevated" interactive>
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">{quiz.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-4">{quiz.description}</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{quiz.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">{quiz.description}</p>
                   <div className="flex items-center justify-between">
-                    <Badge className="bg-green-500/20 text-green-400">Published</Badge>
+                    <Badge variant="success">Published</Badge>
                     <div className="flex items-center gap-1">
-                      <Users className="h-4 w-4 text-gray-600 dark:text-slate-400" />
-                      <span className="text-sm text-gray-700 dark:text-slate-300">{quiz.attempts}</span>
+                      <Users className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                      <span className="text-sm text-gray-700 dark:text-neutral-300">{quiz.attempts}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -467,12 +497,12 @@ export function QuizManager() {
         <TabsContent value="draft">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredQuizzes.filter(q => q.status === 'draft').map((quiz) => (
-              <Card key={quiz.id} className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+              <Card key={quiz.id} variant="elevated" interactive>
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">{quiz.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-slate-400 mb-4">{quiz.description}</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{quiz.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">{quiz.description}</p>
                   <div className="flex items-center justify-between">
-                    <Badge className="bg-yellow-500/20 text-yellow-400">Draft</Badge>
+                    <Badge variant="warning">Draft</Badge>
                     <Button size="sm" className="gap-1">
                       <Play className="h-3 w-3" />
                       Publish
@@ -486,9 +516,9 @@ export function QuizManager() {
 
         <TabsContent value="archived">
           <div className="text-center py-12">
-            <FileText className="h-12 w-12 text-gray-400 dark:text-slate-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-2">No Archived Quizzes</h3>
-            <p className="text-gray-600 dark:text-slate-400">Archived quizzes will appear here</p>
+            <FileText className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Archived Quizzes</h3>
+            <p className="text-gray-600 dark:text-neutral-400">Archived quizzes will appear here</p>
           </div>
         </TabsContent>
       </Tabs>
