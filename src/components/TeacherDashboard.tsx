@@ -30,6 +30,7 @@ import { QuizManager } from './QuizManager';
 import { StudentManager } from './StudentManager';
 import { AIAssistant } from './AIAssistant';
 import { StartCourseModal } from './StartCourseModal';
+import { ProfileModal } from './ProfileModal';
 import { cn } from '../utils/cn';
 
 interface NavItem {
@@ -53,6 +54,7 @@ export function TeacherDashboard() {
   const [showCourseStudio, setShowCourseStudio] = useState(false);
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [showStartCourseModal, setShowStartCourseModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -719,11 +721,13 @@ export function TeacherDashboard() {
               </Button>
 
               {/* Profile */}
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium text-sm">
-                  ST
-                </AvatarFallback>
-              </Avatar>
+              <button onClick={() => setShowProfileModal(true)}>
+                <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary-500 transition-all duration-300">
+                  <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium text-sm">
+                    ST
+                  </AvatarFallback>
+                </Avatar>
+              </button>
             </div>
           </div>
         </div>
@@ -765,6 +769,13 @@ export function TeacherDashboard() {
         open={showStartCourseModal}
         onOpenChange={setShowStartCourseModal}
         onSave={handleCreateCourse}
+      />
+
+      {/* Profile Modal */}
+      <ProfileModal
+        open={showProfileModal}
+        onOpenChange={setShowProfileModal}
+        isDarkMode={isDarkMode}
       />
 
       {/* AI Assistant */}
