@@ -11,7 +11,8 @@ import {
   Search,
   Plus,
   Menu,
-  X
+  X,
+  BookOpen
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -28,6 +29,7 @@ import { CourseAnalytics } from './CourseAnalytics';
 import { QuizManager } from './QuizManager';
 import { StudentManager } from './StudentManager';
 import { AIAssistant } from './AIAssistant';
+import { StartCourseModal } from './StartCourseModal';
 import { cn } from '../utils/cn';
 
 interface NavItem {
@@ -50,6 +52,7 @@ export function TeacherDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showCourseStudio, setShowCourseStudio] = useState(false);
   const [showCourseCreator, setShowCourseCreator] = useState(false);
+  const [showStartCourseModal, setShowStartCourseModal] = useState(false);
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -120,7 +123,7 @@ export function TeacherDashboard() {
       totalLessons: courseData.files?.length || 0,
       completedLessons: 0,
       lastUpdated: "Just created",
-      status: "draft"
+      status: courseData.status || "draft"
     };
     setCourses(prev => [...prev, newCourse]);
   };
@@ -265,12 +268,12 @@ export function TeacherDashboard() {
                     Course Studio
                   </Button>
                   <Button 
-                    onClick={() => setShowCourseCreator(true)}
+                    onClick={() => setShowStartCourseModal(true)}
                     variant="outline"
                     className="gap-2"
                   >
-                    <Plus className="h-4 w-4" />
-                    New Course
+                    <BookOpen className="h-4 w-4" />
+                    Start Course
                   </Button>
                 </div>
               </div>
@@ -752,6 +755,13 @@ export function TeacherDashboard() {
           </main>
         </div>
       </div>
+
+      {/* Start Course Modal */}
+      <StartCourseModal
+        open={showStartCourseModal}
+        onOpenChange={setShowStartCourseModal}
+        onSave={handleCreateCourse}
+      />
 
       {/* AI Assistant */}
       <AIAssistant />
