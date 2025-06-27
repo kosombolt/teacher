@@ -134,6 +134,10 @@ export function TeacherDashboard() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleOpenProfile = () => {
+    setShowProfileModal(true);
+  };
+
   if (showCourseStudio) {
     return <CourseStudio onBack={() => setShowCourseStudio(false)} />;
   }
@@ -721,7 +725,7 @@ export function TeacherDashboard() {
               </Button>
 
               {/* Profile */}
-              <button onClick={() => setShowProfileModal(true)}>
+              <button onClick={handleOpenProfile}>
                 <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary-500 transition-all duration-300">
                   <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium text-sm">
                     ST
@@ -745,6 +749,7 @@ export function TeacherDashboard() {
             onTabChange={setActiveTab}
             isDarkMode={isDarkMode}
             onToggleTheme={toggleTheme}
+            onOpenProfile={handleOpenProfile}
           />
         </div>
 

@@ -24,6 +24,7 @@ interface SidebarProps {
   onTabChange: (tab: string) => void;
   isDarkMode: boolean;
   onToggleTheme: () => void;
+  onOpenProfile?: () => void;
 }
 
 // Only secondary items that are NOT in the top navigation
@@ -35,7 +36,7 @@ const sidebarItems: SidebarItem[] = [
   { id: "help", label: "Help & Support", icon: HelpCircle, section: "account" },
 ];
 
-export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
+export function Sidebar({ activeTab, onTabChange, isDarkMode, onOpenProfile }: SidebarProps) {
   const groupedItems = sidebarItems.reduce((acc, item) => {
     const section = item.section || 'main';
     if (!acc[section]) acc[section] = [];
@@ -47,6 +48,15 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
     tools: 'Teaching Tools',
     communication: 'Communication',
     account: 'Account'
+  };
+
+  const handleItemClick = (itemId: string) => {
+    if (itemId === 'assistant') {
+      // AI Assistant is handled by the floating component
+      // We could add some visual feedback here if needed
+      return;
+    }
+    onTabChange(itemId);
   };
 
   return (
@@ -93,7 +103,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => onTabChange(item.id)}
+                    onClick={() => handleItemClick(item.id)}
                     className={cn(
                       "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-300 font-medium group relative overflow-hidden",
                       isActive
@@ -140,12 +150,15 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
         "p-4 border-t transition-colors duration-300",
         isDarkMode ? "border-neutral-700" : "border-gray-200"
       )}>
-        <div className={cn(
-          "flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-medium",
-          isDarkMode 
-            ? "bg-neutral-700/50 hover:bg-neutral-700" 
-            : "bg-gray-100/50 hover:bg-gray-100"
-        )}>
+        <button
+          onClick={onOpenProfile}
+          className={cn(
+            "w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-medium",
+            isDarkMode 
+              ? "bg-neutral-700/50 hover:bg-neutral-700" 
+              : "bg-gray-100/50 hover:bg-gray-100"
+          )}
+        >
           <Avatar className="h-10 w-10">
             <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium">
               ST
@@ -166,7 +179,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
             </p>
           </div>
           <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
-        </div>
+        </button>
       </div>
     </div>
   );
