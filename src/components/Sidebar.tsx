@@ -13,7 +13,9 @@ import {
   HelpCircle,
   Calendar,
   FileText,
-  ClipboardList
+  ClipboardList,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
@@ -31,6 +33,8 @@ interface SidebarItem {
 interface SidebarProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  isDarkMode: boolean;
+  onToggleTheme: () => void;
 }
 
 const sidebarItems: SidebarItem[] = [
@@ -48,7 +52,7 @@ const sidebarItems: SidebarItem[] = [
   { id: "help", label: "Help & Support", icon: HelpCircle, section: "settings" },
 ];
 
-export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
+export function Sidebar({ activeTab, onTabChange, isDarkMode, onToggleTheme }: SidebarProps) {
   const groupedItems = sidebarItems.reduce((acc, item) => {
     const section = item.section || 'main';
     if (!acc[section]) acc[section] = [];
@@ -64,23 +68,44 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-800 border-r border-slate-700">
+    <div className={cn(
+      "flex flex-col h-full border-r transition-colors duration-300 lg:rounded-xl lg:border",
+      isDarkMode 
+        ? "bg-blue-gray-800 border-blue-gray-700" 
+        : "bg-white border-gray-200"
+    )}>
       {/* Logo */}
-      <div className="p-6 border-b border-slate-700">
+      <div className={cn(
+        "p-6 border-b transition-colors duration-300",
+        isDarkMode ? "border-blue-gray-700" : "border-gray-200"
+      )}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-pink-500 rounded-xl flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-xl flex items-center justify-center">
             <Video className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h1 className="font-bold text-lg text-slate-100">Rafiq</h1>
-            <p className="text-xs text-slate-400">Teacher Dashboard</p>
+            <h1 className={cn(
+              "font-semibold text-base transition-colors duration-300",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Rafiq
+            </h1>
+            <p className={cn(
+              "text-xs transition-colors duration-300",
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            )}>
+              Teacher Dashboard
+            </p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="p-4 border-b border-slate-700">
-        <Button className="w-full gap-2 bg-gradient-to-r from-violet-500 to-pink-500">
+      <div className={cn(
+        "p-4 border-b transition-colors duration-300",
+        isDarkMode ? "border-blue-gray-700" : "border-gray-200"
+      )}>
+        <Button className="w-full gap-2 bg-gradient-to-r from-indigo-400 to-purple-400 hover:from-indigo-500 hover:to-purple-500 h-10">
           <Upload className="h-4 w-4" />
           Upload Content
         </Button>
@@ -90,7 +115,10 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       <nav className="flex-1 p-4 overflow-y-auto">
         {Object.entries(groupedItems).map(([section, items]) => (
           <div key={section} className="mb-6">
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+            <h3 className={cn(
+              "text-xs font-medium uppercase tracking-wider mb-3 transition-colors duration-300",
+              isDarkMode ? "text-gray-500" : "text-gray-500"
+            )}>
               {sectionTitles[section as keyof typeof sectionTitles]}
             </h3>
             <div className="space-y-1">
@@ -101,25 +129,30 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
                     key={item.id}
                     onClick={() => onTabChange(item.id)}
                     className={cn(
-                      "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 font-medium group",
+                      "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-300 font-medium group",
                       activeTab === item.id
-                        ? "bg-gradient-to-r from-violet-500 to-pink-500 text-white shadow-lg"
-                        : "text-slate-300 hover:bg-slate-700 hover:text-slate-100"
+                        ? isDarkMode
+                          ? "bg-indigo-500/20 text-indigo-400 border border-indigo-500/30"
+                          : "bg-indigo-50 text-indigo-600 border border-indigo-200"
+                        : isDarkMode
+                          ? "text-gray-300 hover:bg-blue-gray-700 hover:text-white"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
-                    <Icon className={cn(
-                      "h-5 w-5 transition-transform duration-200",
-                      activeTab === item.id ? "scale-110" : "group-hover:scale-105"
-                    )} />
+                    <Icon className="h-5 w-5 transition-transform duration-200 group-hover:scale-105" />
                     <span className="flex-1">{item.label}</span>
                     {item.badge && (
                       <Badge 
-                        variant={activeTab === item.id ? "secondary" : "outline"}
+                        variant="outline"
                         className={cn(
-                          "text-xs font-medium",
+                          "text-xs font-medium transition-colors duration-300",
                           activeTab === item.id 
-                            ? "bg-white/20 text-white border-white/30" 
-                            : "bg-slate-600 text-slate-300 border-slate-600"
+                            ? isDarkMode
+                              ? "bg-indigo-500/20 text-indigo-400 border-indigo-500/30"
+                              : "bg-indigo-100 text-indigo-600 border-indigo-200"
+                            : isDarkMode
+                              ? "bg-blue-gray-700 text-gray-300 border-blue-gray-600"
+                              : "bg-gray-100 text-gray-600 border-gray-200"
                         )}
                       >
                         {item.badge}
@@ -133,19 +166,51 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Profile */}
-      <div className="p-4 border-t border-slate-700">
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-700/50 hover:bg-slate-700 transition-colors cursor-pointer">
+      {/* Theme Toggle & Profile */}
+      <div className={cn(
+        "p-4 border-t space-y-3 transition-colors duration-300",
+        isDarkMode ? "border-blue-gray-700" : "border-gray-200"
+      )}>
+        <Button
+          onClick={onToggleTheme}
+          variant="ghost"
+          className={cn(
+            "w-full gap-2 justify-start transition-colors duration-300",
+            isDarkMode 
+              ? "text-gray-300 hover:bg-blue-gray-700 hover:text-white" 
+              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          )}
+        >
+          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+        </Button>
+        
+        <div className={cn(
+          "flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 cursor-pointer",
+          isDarkMode 
+            ? "bg-blue-gray-700/50 hover:bg-blue-gray-700" 
+            : "bg-gray-100/50 hover:bg-gray-100"
+        )}>
           <Avatar className="h-10 w-10">
-            <AvatarFallback className="bg-gradient-to-r from-violet-500 to-pink-500 text-white font-semibold">
+            <AvatarFallback className="bg-gradient-to-r from-indigo-400 to-purple-400 text-white font-medium">
               ST
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-slate-100 truncate">Sarah Thompson</p>
-            <p className="text-xs text-slate-400 truncate">Course Creator</p>
+            <p className={cn(
+              "font-medium truncate transition-colors duration-300",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Sarah Thompson
+            </p>
+            <p className={cn(
+              "text-xs truncate transition-colors duration-300",
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            )}>
+              Course Creator
+            </p>
           </div>
-          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
         </div>
       </div>
     </div>

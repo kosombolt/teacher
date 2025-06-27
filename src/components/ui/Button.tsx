@@ -17,16 +17,16 @@ export function Button({
   return (
     <button
       className={cn(
-        'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+        'inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
         {
-          'bg-gradient-to-r from-violet-500 to-pink-500 text-white hover:from-violet-600 hover:to-pink-600': variant === 'default',
-          'border border-slate-600 text-slate-300 hover:bg-slate-800': variant === 'outline',
-          'text-slate-300 hover:bg-slate-800': variant === 'ghost',
+          'bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 shadow-sm hover:shadow-md': variant === 'default',
+          'border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 dark:border-blue-gray-600 dark:text-gray-300 dark:hover:bg-blue-gray-700 dark:hover:border-blue-gray-500': variant === 'outline',
+          'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-blue-gray-700': variant === 'ghost',
         },
         {
           'h-10 py-2 px-4': size === 'default',
-          'h-9 px-3 text-xs': size === 'sm',
-          'h-11 px-8': size === 'lg',
+          'h-8 px-3 text-xs': size === 'sm',
+          'h-12 px-8': size === 'lg',
           'h-10 w-10': size === 'icon',
         },
         className
