@@ -5,7 +5,7 @@ import {
   BarChart3, 
   Users, 
   Settings,
-  Upload,
+  Plus,
   MessageSquare,
   DollarSign,
   Palette,
@@ -22,6 +22,7 @@ import { Dashboard } from './Dashboard';
 import { ContentManager } from './ContentManager';
 import { Analytics } from './Analytics';
 import { StudentManager } from './StudentManager';
+import { CourseCreator } from './CourseCreator';
 
 interface SidebarItem {
   id: string;
@@ -51,6 +52,7 @@ const sidebarItems: SidebarItem[] = [
 export function CourseStudio({ onBack }: CourseStudioProps) {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showCourseCreator, setShowCourseCreator] = useState(false);
 
   const groupedItems = sidebarItems.reduce((acc, item) => {
     const section = item.section || 'main';
@@ -65,6 +67,21 @@ export function CourseStudio({ onBack }: CourseStudioProps) {
     business: 'Business',
     settings: 'Settings'
   };
+
+  const handleCreateCourse = (courseData: any) => {
+    console.log('New course created:', courseData);
+    setShowCourseCreator(false);
+    // Handle course creation logic here
+  };
+
+  if (showCourseCreator) {
+    return (
+      <CourseCreator 
+        onSave={handleCreateCourse}
+        onCancel={() => setShowCourseCreator(false)}
+      />
+    );
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -290,11 +307,14 @@ export function CourseStudio({ onBack }: CourseStudioProps) {
               </div>
             </div>
 
-            {/* Quick Actions */}
+            {/* Course Creator Button */}
             <div className="p-4 border-b border-slate-700">
-              <Button className="w-full gap-2 bg-gradient-to-r from-violet-500 to-pink-500">
-                <Upload className="h-4 w-4" />
-                Upload Content
+              <Button 
+                onClick={() => setShowCourseCreator(true)}
+                className="w-full gap-2 bg-gradient-to-r from-violet-500 to-pink-500"
+              >
+                <Plus className="h-4 w-4" />
+                Course Creator
               </Button>
             </div>
 
