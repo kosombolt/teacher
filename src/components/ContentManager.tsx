@@ -99,10 +99,10 @@ export function ContentManager() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'published': return 'bg-green-500/20 text-green-400';
-      case 'draft': return 'bg-yellow-500/20 text-yellow-400';
-      case 'processing': return 'bg-blue-500/20 text-blue-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      case 'published': return 'success';
+      case 'draft': return 'warning';
+      case 'processing': return 'default';
+      default: return 'secondary';
     }
   };
 
@@ -111,8 +111,8 @@ export function ContentManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Content Manager</h1>
-          <p className="text-slate-400">Manage your videos, documents, and course materials</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Content Manager</h1>
+          <p className="text-gray-600 dark:text-neutral-400">Manage your videos, documents, and course materials</p>
         </div>
         <Button 
           onClick={() => setIsUploadOpen(true)}
@@ -126,7 +126,7 @@ export function ContentManager() {
       {/* Filters and Search */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
           <Input
             placeholder="Search content..."
             value={searchQuery}
@@ -137,7 +137,7 @@ export function ContentManager() {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-3 py-2 bg-slate-800 border border-slate-600 rounded-md text-slate-100"
+          className="px-3 py-2 bg-white dark:bg-neutral-800 border border-gray-300 dark:border-neutral-600 rounded-md text-gray-900 dark:text-white"
         >
           <option value="all">All Status</option>
           <option value="published">Published</option>
@@ -151,8 +151,8 @@ export function ContentManager() {
 
       {/* Bulk Actions */}
       {selectedItems.length > 0 && (
-        <div className="flex items-center gap-2 p-3 bg-slate-800 rounded-lg border border-slate-700">
-          <span className="text-sm text-slate-300">{selectedItems.length} items selected</span>
+        <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-neutral-800 rounded-lg border border-gray-150 dark:border-neutral-700">
+          <span className="text-sm text-gray-700 dark:text-neutral-300">{selectedItems.length} items selected</span>
           <Button size="sm" variant="outline" onClick={() => handleBulkAction('publish')}>
             Publish
           </Button>
@@ -165,15 +165,15 @@ export function ContentManager() {
         </div>
       )}
 
-      {/* Content Grid */}
+      {/* Content Grid - Student dashboard style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredContent.map((item) => (
-          <Card key={item.id} className="bg-slate-800 border-slate-700 overflow-hidden">
-            <div className="aspect-video bg-slate-700 flex items-center justify-center relative">
+          <Card key={item.id} variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft overflow-hidden">
+            <div className="aspect-video bg-gray-100 dark:bg-neutral-700 flex items-center justify-center relative">
               {item.type === 'video' ? (
-                <Video className="h-12 w-12 text-slate-400" />
+                <Video className="h-12 w-12 text-gray-400 dark:text-neutral-400" />
               ) : (
-                <FileText className="h-12 w-12 text-slate-400" />
+                <FileText className="h-12 w-12 text-gray-400 dark:text-neutral-400" />
               )}
               {item.duration && (
                 <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
@@ -198,21 +198,21 @@ export function ContentManager() {
             
             <CardContent className="p-4">
               <div className="flex items-start justify-between mb-2">
-                <h3 className="font-medium text-slate-100 line-clamp-2">{item.title}</h3>
-                <Button variant="ghost" size="icon" className="text-slate-400">
+                <h3 className="font-medium text-gray-900 dark:text-white line-clamp-2">{item.title}</h3>
+                <Button variant="ghost" size="icon" className="text-gray-400 dark:text-neutral-400">
                   <MoreVertical className="h-4 w-4" />
                 </Button>
               </div>
               
-              <p className="text-sm text-slate-400 line-clamp-2 mb-3">{item.description}</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-400 line-clamp-2 mb-3">{item.description}</p>
               
-              <div className="flex items-center justify-between text-xs text-slate-400 mb-3">
+              <div className="flex items-center justify-between text-xs text-gray-500 dark:text-neutral-500 mb-3">
                 <span>{item.size}</span>
                 <span>{item.views.toLocaleString()} views</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <Badge className={getStatusColor(item.status)}>
+                <Badge variant={getStatusColor(item.status)}>
                   {item.status}
                 </Badge>
                 <div className="flex items-center gap-1">
@@ -246,12 +246,12 @@ export function ContentManager() {
             </TabsList>
             
             <TabsContent value="single" className="space-y-4">
-              <div className="border-2 border-dashed border-slate-600 rounded-lg p-8 text-center">
-                <Upload className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-slate-100 mb-2">
+              <div className="border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg p-8 text-center">
+                <Upload className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                   Upload your content
                 </h3>
-                <p className="text-slate-400 mb-4">
+                <p className="text-gray-600 dark:text-neutral-400 mb-4">
                   Drag and drop your files here, or click to browse
                 </p>
                 <input
@@ -269,12 +269,12 @@ export function ContentManager() {
             </TabsContent>
             
             <TabsContent value="bulk" className="space-y-4">
-              <div className="border-2 border-dashed border-slate-600 rounded-lg p-8 text-center">
-                <Upload className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-slate-100 mb-2">
+              <div className="border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg p-8 text-center">
+                <Upload className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                   Bulk Upload
                 </h3>
-                <p className="text-slate-400 mb-4">
+                <p className="text-gray-600 dark:text-neutral-400 mb-4">
                   Upload multiple files at once with automatic processing
                 </p>
                 <Button>
@@ -286,10 +286,10 @@ export function ContentManager() {
           
           {uploadFiles.length > 0 && (
             <div className="space-y-2">
-              <h4 className="font-medium text-slate-100">Files to Upload:</h4>
+              <h4 className="font-medium text-gray-900 dark:text-white">Files to Upload:</h4>
               {uploadFiles.map((file, index) => (
-                <div key={index} className="flex items-center justify-between p-2 bg-slate-700 rounded">
-                  <span className="text-sm text-slate-300">{file.name}</span>
+                <div key={index} className="flex items-center justify-between p-2 bg-gray-100 dark:bg-neutral-700 rounded">
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">{file.name}</span>
                   <Button
                     variant="ghost"
                     size="icon"

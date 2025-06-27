@@ -53,15 +53,16 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
   return (
     <div className={cn(
       "flex flex-col h-full border transition-all duration-300 rounded-2xl backdrop-blur-sm",
+      // Student dashboard matching sidebar style
       isDarkMode 
         ? "bg-neutral-800/95 border-neutral-700" 
-        : "bg-white/95 border-gray-200 shadow-sm",
+        : "bg-white/95 border-gray-150 shadow-xs",
       "shadow-soft"
     )}>
       {/* Header */}
       <div className={cn(
         "p-6 border-b transition-colors duration-300",
-        isDarkMode ? "border-neutral-700" : "border-gray-200"
+        isDarkMode ? "border-neutral-700" : "border-gray-150"
       )}>
         <h2 className={cn(
           "font-semibold text-lg",
@@ -100,7 +101,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
                       isActive
                         ? isDarkMode
                           ? "bg-gradient-to-r from-primary-500/20 to-secondary-500/20 text-primary-400 border border-primary-500/30 shadow-glow"
-                          : "bg-gradient-to-r from-primary-50 to-secondary-50 text-primary-600 border border-primary-200 shadow-medium"
+                          : "bg-gradient-to-r from-primary-50 to-secondary-50 text-primary-600 border border-primary-200 shadow-soft"
                         : isDarkMode
                           ? "text-neutral-300 hover:bg-neutral-700 hover:text-white"
                           : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -114,6 +115,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
                     {item.badge && (
                       <Badge 
                         variant="outline"
+                        size="sm"
                         className={cn(
                           "text-xs font-medium transition-all duration-300",
                           isActive 
@@ -136,18 +138,18 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
         ))}
       </nav>
 
-      {/* Profile */}
+      {/* Profile - Student dashboard style */}
       <div className={cn(
         "p-4 border-t transition-colors duration-300",
-        isDarkMode ? "border-neutral-700" : "border-gray-200"
+        isDarkMode ? "border-neutral-700" : "border-gray-150"
       )}>
         <button
           onClick={onProfileClick}
           className={cn(
-            "w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-medium",
+            "w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-soft",
             isDarkMode 
               ? "bg-neutral-700/50 hover:bg-neutral-700" 
-              : "bg-gray-100/50 hover:bg-gray-100"
+              : "bg-gray-50 hover:bg-gray-100"
           )}
         >
           <Avatar className="h-10 w-10">

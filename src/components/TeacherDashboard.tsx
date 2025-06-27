@@ -57,7 +57,6 @@ export function TeacherDashboard() {
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [showStartCourseModal, setShowStartCourseModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -109,22 +108,13 @@ export function TeacherDashboard() {
     }
   ]);
 
-  // Enhanced theme transition with smooth animations
+  // Apply theme class to document
   useEffect(() => {
-    const applyTheme = async () => {
-      setIsThemeTransitioning(true);
-      
-      if (isDarkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      
-      // Allow transition to complete
-      setTimeout(() => setIsThemeTransitioning(false), 300);
-    };
-    
-    applyTheme();
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [isDarkMode]);
 
   const handleCreateCourse = (courseData: any) => {
@@ -157,17 +147,14 @@ export function TeacherDashboard() {
   if (showCourseCreator) {
     return (
       <div className={cn(
-        "min-h-screen p-6 transition-all duration-500 ease-smooth",
-        // Enhanced background with better contrast
-        isDarkMode ? "bg-neutral-900" : "bg-gray-50",
-        // Theme transition overlay
-        isThemeTransitioning && "animate-theme-transition"
+        "min-h-screen p-6 transition-all duration-300",
+        // Student dashboard matching background
+        isDarkMode ? "bg-neutral-900" : "bg-gray-25"
       )}>
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h1 className={cn(
-              "text-2xl font-semibold transition-colors duration-300",
-              // Enhanced text contrast for light mode
+              "text-2xl font-semibold",
               isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Create New Course
@@ -189,26 +176,24 @@ export function TeacherDashboard() {
     switch (activeTab) {
       case "dashboard":
         return (
-          <div className="space-y-8 animate-fade-in">
-            {/* Enhanced welcome section with better typography hierarchy */}
+          <div className="space-y-8">
+            {/* Welcome Section - Student dashboard style */}
             <div className="text-center space-y-3">
               <h1 className={cn(
-                "text-4xl font-bold tracking-tight transition-colors duration-300",
-                // Enhanced contrast for light mode
+                "text-3xl font-bold",
                 isDarkMode ? "text-white" : "text-gray-900"
               )}>
                 Welcome back, Sarah
               </h1>
               <p className={cn(
-                "text-xl transition-colors duration-300",
-                // Improved secondary text contrast
+                "text-lg",
                 isDarkMode ? "text-neutral-400" : "text-gray-600"
               )}>
                 Manage your courses and track student progress
               </p>
             </div>
 
-            {/* Enhanced stats cards with improved visual hierarchy */}
+            {/* Stats Cards - Matching student dashboard style */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { 
@@ -245,13 +230,12 @@ export function TeacherDashboard() {
                 <Card 
                   key={stat.title}
                   variant="elevated"
-                  interactive
                   className={cn(
-                    "p-6 transition-all duration-300 hover:scale-105 transform-gpu",
-                    // Enhanced hover effects
-                    "hover:shadow-large",
-                    // Theme transition support
-                    isThemeTransitioning && "animate-theme-transition"
+                    "p-6 transition-all duration-300 hover:scale-105",
+                    // Student dashboard matching styling
+                    "bg-white dark:bg-neutral-800",
+                    "border border-gray-100 dark:border-neutral-700",
+                    "shadow-soft hover:shadow-medium"
                   )}
                 >
                   <div className="flex items-center justify-between mb-4">
@@ -263,23 +247,21 @@ export function TeacherDashboard() {
                       {stat.icon}
                     </div>
                     <div className={cn(
-                      "text-3xl font-bold transition-colors duration-300",
-                      // Enhanced number contrast
+                      "text-2xl font-bold",
                       isDarkMode ? "text-white" : "text-gray-900"
                     )}>
                       {stat.value}
                     </div>
                   </div>
                   <h3 className={cn(
-                    "font-semibold mb-2 transition-colors duration-300",
-                    // Enhanced title contrast
+                    "font-medium mb-1",
                     isDarkMode ? "text-neutral-300" : "text-gray-700"
                   )}>
                     {stat.title}
                   </h3>
                   <p className={cn(
-                    "text-sm transition-colors duration-300",
-                    stat.positive ? "text-success-600 dark:text-success-400" : 
+                    "text-sm",
+                    stat.positive ? "text-success-600" : 
                     isDarkMode ? "text-neutral-500" : "text-gray-500"
                   )}>
                     {stat.change}
@@ -288,12 +270,11 @@ export function TeacherDashboard() {
               ))}
             </div>
 
-            {/* Enhanced course management section */}
+            {/* Course Management Section - Student dashboard style */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h2 className={cn(
-                  "text-2xl font-semibold transition-colors duration-300",
-                  // Enhanced heading contrast
+                  "text-2xl font-semibold",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Course Management
@@ -301,7 +282,7 @@ export function TeacherDashboard() {
                 <div className="flex gap-3">
                   <Button 
                     onClick={() => setShowCourseStudio(true)}
-                    className="gap-2 shadow-medium hover:shadow-large"
+                    className="gap-2"
                   >
                     <Video className="h-4 w-4" />
                     Course Studio
@@ -322,18 +303,17 @@ export function TeacherDashboard() {
                   <Card 
                     key={course.id} 
                     variant="elevated"
-                    interactive
                     className={cn(
-                      "p-6 transition-all duration-300 hover:scale-105 transform-gpu",
-                      // Enhanced course card styling
-                      "hover:shadow-large",
-                      isThemeTransitioning && "animate-theme-transition"
+                      "p-6 transition-all duration-300 hover:scale-105",
+                      // Student dashboard matching card style
+                      "bg-white dark:bg-neutral-800",
+                      "border border-gray-100 dark:border-neutral-700",
+                      "shadow-soft hover:shadow-medium"
                     )}
                   >
                     <div className="flex items-start justify-between mb-4">
                       <h3 className={cn(
-                        "font-semibold text-lg transition-colors duration-300",
-                        // Enhanced course title contrast
+                        "font-semibold text-lg",
                         isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         {course.title}
@@ -343,15 +323,13 @@ export function TeacherDashboard() {
                           course.status === 'active' ? 'success' :
                           course.status === 'completed' ? 'default' : 'warning'
                         }
-                        className="shadow-xs"
                       >
                         {course.status}
                       </Badge>
                     </div>
                     
                     <p className={cn(
-                      "text-sm mb-6 line-clamp-2 transition-colors duration-300",
-                      // Enhanced description contrast
+                      "text-sm mb-6 line-clamp-2",
                       isDarkMode ? "text-neutral-400" : "text-gray-600"
                     )}>
                       {course.description}
@@ -360,13 +338,13 @@ export function TeacherDashboard() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="text-center">
                         <div className={cn(
-                          "text-2xl font-bold transition-colors duration-300",
+                          "text-2xl font-bold",
                           isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.students}
                         </div>
                         <div className={cn(
-                          "text-xs transition-colors duration-300",
+                          "text-xs",
                           isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Students
@@ -374,13 +352,13 @@ export function TeacherDashboard() {
                       </div>
                       <div className="text-center">
                         <div className={cn(
-                          "text-2xl font-bold transition-colors duration-300",
+                          "text-2xl font-bold",
                           isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.completionRate}%
                         </div>
                         <div className={cn(
-                          "text-xs transition-colors duration-300",
+                          "text-xs",
                           isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Completion
@@ -409,17 +387,16 @@ export function TeacherDashboard() {
         return <QuizManager />;
       case "assistant":
         return (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className={cn(
-                  "text-2xl font-bold transition-colors duration-300",
+                  "text-2xl font-bold",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   AI Teaching Assistant
                 </h1>
                 <p className={cn(
-                  "transition-colors duration-300",
                   isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Get help with lesson planning, student engagement, and more
@@ -431,14 +408,259 @@ export function TeacherDashboard() {
               variant="elevated"
               className={cn(
                 "h-[calc(100vh-200px)] overflow-hidden",
-                isThemeTransitioning && "animate-theme-transition"
+                // Student dashboard matching card style
+                "bg-white dark:bg-neutral-800",
+                "border border-gray-100 dark:border-neutral-700",
+                "shadow-soft"
               )}
             >
               <ChatInterface />
             </Card>
           </div>
         );
-      // ... other cases with similar enhancements
+      case "comments":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Comments & Discussions
+            </h1>
+            <Card 
+              variant="elevated"
+              className={cn(
+                "p-8 text-center",
+                "bg-white dark:bg-neutral-800",
+                "border border-gray-100 dark:border-neutral-700",
+                "shadow-soft"
+              )}
+            >
+              <p className={cn(
+                isDarkMode ? "text-neutral-400" : "text-gray-600"
+              )}>
+                Comments management system coming soon...
+              </p>
+            </Card>
+          </div>
+        );
+      case "monetization":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Monetization
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Subscription Plans",
+                  description: "Set up recurring subscription plans for your courses",
+                  action: "Configure Plans"
+                },
+                {
+                  title: "One-time Purchases", 
+                  description: "Sell individual courses or course bundles",
+                  action: "Set Pricing"
+                },
+                {
+                  title: "Payment Gateway",
+                  description: "Connect Stripe, PayPal, or other payment providers", 
+                  action: "Connect"
+                }
+              ].map((item, index) => (
+                <Card 
+                  key={item.title}
+                  variant="elevated"
+                  className={cn(
+                    "p-6",
+                    "bg-white dark:bg-neutral-800",
+                    "border border-gray-100 dark:border-neutral-700",
+                    "shadow-soft"
+                  )}
+                >
+                  <h3 className={cn(
+                    "text-lg font-semibold mb-2",
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  )}>
+                    {item.title}
+                  </h3>
+                  <p className={cn(
+                    "text-sm mb-4",
+                    isDarkMode ? "text-neutral-400" : "text-gray-600"
+                  )}>
+                    {item.description}
+                  </p>
+                  <Button className="w-full" variant={index === 0 ? "default" : "outline"}>
+                    {item.action}
+                  </Button>
+                </Card>
+              ))}
+            </div>
+          </div>
+        );
+      case "settings":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Settings
+            </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card 
+                variant="elevated"
+                className={cn(
+                  "p-6",
+                  "bg-white dark:bg-neutral-800",
+                  "border border-gray-100 dark:border-neutral-700",
+                  "shadow-soft"
+                )}
+              >
+                <h3 className={cn(
+                  "text-lg font-semibold mb-4",
+                  isDarkMode ? "text-white" : "text-gray-900"
+                )}>
+                  Account Settings
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className={cn(
+                      "block text-sm font-medium mb-2",
+                      isDarkMode ? "text-neutral-300" : "text-gray-700"
+                    )}>
+                      Display Name
+                    </label>
+                    <Input defaultValue="Sarah Thompson" />
+                  </div>
+                  <div>
+                    <label className={cn(
+                      "block text-sm font-medium mb-2",
+                      isDarkMode ? "text-neutral-300" : "text-gray-700"
+                    )}>
+                      Email
+                    </label>
+                    <Input type="email" defaultValue="sarah@example.com" />
+                  </div>
+                </div>
+              </Card>
+              <Card 
+                variant="elevated"
+                className={cn(
+                  "p-6",
+                  "bg-white dark:bg-neutral-800",
+                  "border border-gray-100 dark:border-neutral-700",
+                  "shadow-soft"
+                )}
+              >
+                <h3 className={cn(
+                  "text-lg font-semibold mb-4",
+                  isDarkMode ? "text-white" : "text-gray-900"
+                )}>
+                  Privacy Settings
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className={cn(
+                        "font-medium",
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      )}>
+                        Public Profile
+                      </p>
+                      <p className={cn(
+                        "text-sm",
+                        isDarkMode ? "text-neutral-400" : "text-gray-600"
+                      )}>
+                        Make your profile visible to students
+                      </p>
+                    </div>
+                    <input type="checkbox" className="rounded" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className={cn(
+                        "font-medium",
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      )}>
+                        Analytics Sharing
+                      </p>
+                      <p className={cn(
+                        "text-sm",
+                        isDarkMode ? "text-neutral-400" : "text-gray-600"
+                      )}>
+                        Share anonymous analytics data
+                      </p>
+                    </div>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        );
+      case "help":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-gray-900"
+            )}>
+              Help & Support
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card 
+                variant="elevated"
+                className={cn(
+                  "p-6",
+                  "bg-white dark:bg-neutral-800",
+                  "border border-gray-100 dark:border-neutral-700",
+                  "shadow-soft"
+                )}
+              >
+                <h3 className={cn(
+                  "text-lg font-semibold mb-2",
+                  isDarkMode ? "text-white" : "text-gray-900"
+                )}>
+                  Documentation
+                </h3>
+                <p className={cn(
+                  "text-sm mb-4",
+                  isDarkMode ? "text-neutral-400" : "text-gray-600"
+                )}>
+                  Learn how to use all features of the platform
+                </p>
+                <Button variant="outline" className="w-full">View Docs</Button>
+              </Card>
+              <Card 
+                variant="elevated"
+                className={cn(
+                  "p-6",
+                  "bg-white dark:bg-neutral-800",
+                  "border border-gray-100 dark:border-neutral-700",
+                  "shadow-soft"
+                )}
+              >
+                <h3 className={cn(
+                  "text-lg font-semibold mb-2",
+                  isDarkMode ? "text-white" : "text-gray-900"
+                )}>
+                  Contact Support
+                </h3>
+                <p className={cn(
+                  "text-sm mb-4",
+                  isDarkMode ? "text-neutral-400" : "text-gray-600"
+                )}>
+                  Get help from our support team
+                </p>
+                <Button className="w-full">Contact Us</Button>
+              </Card>
+            </div>
+          </div>
+        );
       default:
         return null;
     }
@@ -446,26 +668,22 @@ export function TeacherDashboard() {
 
   return (
     <div className={cn(
-      "min-h-screen transition-all duration-500 ease-smooth",
-      // Enhanced background with better visual hierarchy
-      isDarkMode ? "bg-neutral-900" : "bg-gray-50",
-      // Theme transition overlay
-      isThemeTransitioning && "animate-theme-transition"
+      "min-h-screen transition-all duration-300",
+      // Student dashboard matching background
+      isDarkMode ? "bg-neutral-900" : "bg-gray-25"
     )}>
-      {/* Enhanced top navigation with better contrast and spacing */}
+      {/* Top Navigation - Student dashboard style */}
       <nav className={cn(
-        "sticky top-0 z-50 transition-all duration-300 ease-smooth",
-        // Enhanced backdrop and border
-        "backdrop-blur-md border-b",
+        "sticky top-0 z-50 border-b backdrop-blur-sm transition-all duration-300",
+        // Student dashboard matching nav style
         isDarkMode 
           ? "bg-neutral-800/90 border-neutral-700" 
-          : "bg-white/90 border-gray-200",
-        // Enhanced shadow for depth
-        "shadow-soft"
+          : "bg-white/90 border-gray-150",
+        "shadow-xs"
       )}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Enhanced logo and mobile menu */}
+            {/* Logo & Mobile Menu */}
             <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
@@ -477,18 +695,18 @@ export function TeacherDashboard() {
               </Button>
               
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-medium">
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-soft">
                   <Video className="h-5 w-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
                   <h1 className={cn(
-                    "font-bold text-lg transition-colors duration-300",
+                    "font-bold text-lg",
                     isDarkMode ? "text-white" : "text-gray-900"
                   )}>
                     Rafiq
                   </h1>
                   <p className={cn(
-                    "text-xs transition-colors duration-300",
+                    "text-xs",
                     isDarkMode ? "text-neutral-400" : "text-gray-600"
                   )}>
                     Teacher Dashboard
@@ -497,7 +715,7 @@ export function TeacherDashboard() {
               </div>
             </div>
 
-            {/* Enhanced main navigation with better active states */}
+            {/* Main Navigation - Student dashboard style */}
             <div className="hidden md:flex items-center gap-2">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
@@ -507,25 +725,22 @@ export function TeacherDashboard() {
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
                     className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 relative transform-gpu",
-                      // Enhanced active state with better contrast
+                      "flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 relative",
                       isActive
-                        ? "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-medium hover:shadow-large scale-105"
+                        ? "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-soft"
                         : isDarkMode
-                          ? "text-neutral-300 hover:bg-neutral-700 hover:text-white hover:scale-105"
-                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:scale-105",
-                      // Enhanced focus states
-                      "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                          ? "text-neutral-300 hover:bg-neutral-700 hover:text-white"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
                     <Icon className="h-4 w-4" />
                     <span>{item.label}</span>
                     {item.badge && (
                       <Badge 
-                        variant={isActive ? "secondary" : "outline"}
+                        variant="outline"
                         size="sm"
                         className={cn(
-                          "ml-1 transition-all duration-300",
+                          "ml-1",
                           isActive 
                             ? "bg-white/20 text-white border-white/30"
                             : isDarkMode
@@ -541,47 +756,42 @@ export function TeacherDashboard() {
               })}
             </div>
 
-            {/* Enhanced right side actions */}
+            {/* Right Side Actions - Student dashboard style */}
             <div className="flex items-center gap-3">
-              {/* Enhanced search with better styling */}
+              {/* Search */}
               <div className="relative hidden lg:block">
                 <Search className={cn(
-                  "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 transition-colors duration-300",
+                  "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4",
                   isDarkMode ? "text-neutral-400" : "text-gray-500"
                 )} />
                 <Input
                   placeholder="Search..."
                   className="pl-10 w-64"
-                  variant="default"
                 />
               </div>
 
-              {/* Enhanced notifications with better indicator */}
+              {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-4 w-4" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full animate-pulse shadow-soft"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full"></div>
               </Button>
 
-              {/* Enhanced theme toggle with smooth transitions */}
+              {/* Theme Toggle */}
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
                 className={cn(
-                  "transition-all duration-300 transform-gpu hover:scale-110",
+                  "transition-all duration-300",
                   isDarkMode ? "text-yellow-400 hover:text-yellow-300" : "text-gray-600 hover:text-gray-900"
                 )}
-                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
 
-              {/* Enhanced profile with better hover effects */}
-              <button 
-                onClick={handleProfileClick}
-                className="transition-all duration-300 hover:scale-110 transform-gpu focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-full"
-              >
-                <Avatar className="h-8 w-8 shadow-medium hover:shadow-large">
+              {/* Profile */}
+              <button onClick={handleProfileClick}>
+                <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary-500 transition-all duration-300">
                   <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium text-sm">
                     ST
                   </AvatarFallback>
@@ -593,9 +803,9 @@ export function TeacherDashboard() {
       </nav>
 
       <div className="flex">
-        {/* Enhanced sidebar with better positioning and transitions */}
+        {/* Sidebar */}
         <div className={cn(
-          "fixed inset-y-0 left-0 z-40 w-72 transform transition-all duration-300 ease-smooth lg:translate-x-0 lg:static lg:inset-0",
+          "fixed inset-y-0 left-0 z-40 w-72 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full",
           "pt-20 lg:pt-4 p-4"
         )}>
@@ -608,27 +818,23 @@ export function TeacherDashboard() {
           />
         </div>
 
-        {/* Enhanced mobile overlay */}
+        {/* Mobile Overlay */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-30 lg:hidden transition-opacity duration-300 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/50 z-30 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
 
-        {/* Enhanced main content with better spacing */}
+        {/* Main Content */}
         <div className="flex-1 lg:ml-0">
-          <main className={cn(
-            "p-6 max-w-6xl mx-auto transition-all duration-300",
-            // Enhanced content spacing
-            "space-y-6"
-          )}>
+          <main className="p-6 max-w-6xl mx-auto">
             {renderContent()}
           </main>
         </div>
       </div>
 
-      {/* Enhanced modals with better transitions */}
+      {/* Modals */}
       <StartCourseModal
         open={showStartCourseModal}
         onOpenChange={setShowStartCourseModal}
@@ -641,7 +847,7 @@ export function TeacherDashboard() {
         isDarkMode={isDarkMode}
       />
 
-      {/* Enhanced AI Assistant with better positioning */}
+      {/* AI Assistant */}
       <AIAssistant />
     </div>
   );

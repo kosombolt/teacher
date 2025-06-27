@@ -87,19 +87,19 @@ export function StudentManager() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500/20 text-green-400';
-      case 'inactive': return 'bg-yellow-500/20 text-yellow-400';
-      case 'suspended': return 'bg-red-500/20 text-red-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      case 'active': return 'success';
+      case 'inactive': return 'warning';
+      case 'suspended': return 'error';
+      default: return 'secondary';
     }
   };
 
   const getSubscriptionColor = (subscription: string) => {
     switch (subscription) {
-      case 'free': return 'bg-slate-500/20 text-slate-400';
-      case 'premium': return 'bg-violet-500/20 text-violet-400';
-      case 'enterprise': return 'bg-gold-500/20 text-yellow-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      case 'free': return 'secondary';
+      case 'premium': return 'default';
+      case 'enterprise': return 'warning';
+      default: return 'secondary';
     }
   };
 
@@ -108,8 +108,8 @@ export function StudentManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Student Management</h1>
-          <p className="text-gray-600 dark:text-slate-400">Manage your students and track their progress</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Student Management</h1>
+          <p className="text-gray-600 dark:text-neutral-400">Manage your students and track their progress</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" className="gap-2">
@@ -123,51 +123,51 @@ export function StudentManager() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Student dashboard style */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Total Students</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">Total Students</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">{students.length}</div>
-            <div className="text-xs text-green-400">+12 this month</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">{students.length}</div>
+            <div className="text-xs text-success-600">+12 this month</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Active Students</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">Active Students</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {students.filter(s => s.status === 'active').length}
             </div>
-            <div className="text-xs text-green-400">85% active rate</div>
+            <div className="text-xs text-success-600">85% active rate</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Avg Completion</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">Avg Completion</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {Math.round(students.reduce((sum, s) => sum + s.completionRate, 0) / students.length)}%
             </div>
-            <div className="text-xs text-green-400">+5% vs last month</div>
+            <div className="text-xs text-success-600">+5% vs last month</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+        <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">Premium Students</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">Premium Students</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {students.filter(s => s.subscription !== 'free').length}
             </div>
-            <div className="text-xs text-green-400">68% conversion</div>
+            <div className="text-xs text-success-600">68% conversion</div>
           </CardContent>
         </Card>
       </div>
@@ -182,7 +182,7 @@ export function StudentManager() {
           
           <div className="flex items-center gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
               <Input
                 placeholder="Search students..."
                 value={searchQuery}
@@ -199,8 +199,8 @@ export function StudentManager() {
         <TabsContent value="all">
           {/* Bulk Actions */}
           {selectedStudents.length > 0 && (
-            <div className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 mb-4">
-              <span className="text-sm text-gray-700 dark:text-slate-300">{selectedStudents.length} students selected</span>
+            <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-neutral-800 rounded-lg border border-gray-150 dark:border-neutral-700 mb-4">
+              <span className="text-sm text-gray-700 dark:text-neutral-300">{selectedStudents.length} students selected</span>
               <Button size="sm" variant="outline">
                 <Mail className="h-4 w-4 mr-1" />
                 Send Email
@@ -212,14 +212,14 @@ export function StudentManager() {
             </div>
           )}
 
-          {/* Students Table */}
-          <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+          {/* Students Table - Student dashboard style */}
+          <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="border-b border-gray-200 dark:border-slate-700">
+                  <thead className="border-b border-gray-150 dark:border-neutral-700">
                     <tr className="text-left">
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">
                         <input
                           type="checkbox"
                           onChange={(e) => {
@@ -231,19 +231,19 @@ export function StudentManager() {
                           }}
                         />
                       </th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Student</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Status</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Subscription</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Courses</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Completion</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Watch Time</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Last Active</th>
-                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-slate-400">Actions</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Student</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Status</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Subscription</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Courses</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Completion</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Watch Time</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Last Active</th>
+                      <th className="p-4 text-sm font-medium text-gray-600 dark:text-neutral-400">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredStudents.map((student) => (
-                      <tr key={student.id} className="border-b border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/50">
+                      <tr key={student.id} className="border-b border-gray-150 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700/50">
                         <td className="p-4">
                           <input
                             type="checkbox"
@@ -266,35 +266,35 @@ export function StudentManager() {
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium text-gray-900 dark:text-slate-100">{student.name}</div>
-                              <div className="text-sm text-gray-600 dark:text-slate-400">{student.email}</div>
+                              <div className="font-medium text-gray-900 dark:text-white">{student.name}</div>
+                              <div className="text-sm text-gray-600 dark:text-neutral-400">{student.email}</div>
                             </div>
                           </div>
                         </td>
                         <td className="p-4">
-                          <Badge className={getStatusColor(student.status)}>
+                          <Badge variant={getStatusColor(student.status)}>
                             {student.status}
                           </Badge>
                         </td>
                         <td className="p-4">
-                          <Badge className={getSubscriptionColor(student.subscription)}>
+                          <Badge variant={getSubscriptionColor(student.subscription)}>
                             {student.subscription}
                           </Badge>
                         </td>
-                        <td className="p-4 text-gray-900 dark:text-slate-300">{student.coursesEnrolled}</td>
+                        <td className="p-4 text-gray-900 dark:text-white">{student.coursesEnrolled}</td>
                         <td className="p-4">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 bg-gray-200 dark:bg-slate-700 rounded-full h-2">
+                            <div className="w-16 bg-gray-200 dark:bg-neutral-700 rounded-full h-2">
                               <div 
-                                className="bg-gradient-to-r from-violet-500 to-pink-500 h-2 rounded-full"
+                                className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full"
                                 style={{ width: `${student.completionRate}%` }}
                               />
                             </div>
-                            <span className="text-sm text-gray-900 dark:text-slate-300">{student.completionRate}%</span>
+                            <span className="text-sm text-gray-900 dark:text-white">{student.completionRate}%</span>
                           </div>
                         </td>
-                        <td className="p-4 text-gray-900 dark:text-slate-300">{student.totalWatchTime}</td>
-                        <td className="p-4 text-gray-600 dark:text-slate-400 text-sm">{student.lastActive}</td>
+                        <td className="p-4 text-gray-900 dark:text-white">{student.totalWatchTime}</td>
+                        <td className="p-4 text-gray-600 dark:text-neutral-400 text-sm">{student.lastActive}</td>
                         <td className="p-4">
                           <div className="flex items-center gap-1">
                             <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -318,17 +318,17 @@ export function StudentManager() {
         </TabsContent>
 
         <TabsContent value="active">
-          <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+          <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
             <CardContent className="p-6">
-              <p className="text-gray-600 dark:text-slate-400">Active students view - filtered content would go here</p>
+              <p className="text-gray-600 dark:text-neutral-400">Active students view - filtered content would go here</p>
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="inactive">
-          <Card className="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700">
+          <Card variant="elevated" className="bg-white dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700 shadow-soft">
             <CardContent className="p-6">
-              <p className="text-gray-600 dark:text-slate-400">Inactive students view - filtered content would go here</p>
+              <p className="text-gray-600 dark:text-neutral-400">Inactive students view - filtered content would go here</p>
             </CardContent>
           </Card>
         </TabsContent>
