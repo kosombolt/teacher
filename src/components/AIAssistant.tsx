@@ -48,8 +48,11 @@ export function AIAssistant() {
                   <Bot className="h-4 w-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white">AI Assistant</h3>
-                  <p className="text-xs text-neutral-500">Online</p>
+                  <h3 className="font-semibold text-neutral-900 dark:text-white">Rafiq AI</h3>
+                  <p className="text-xs text-green-500 flex items-center gap-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    Online
+                  </p>
                 </div>
               </div>
               
@@ -81,7 +84,7 @@ export function AIAssistant() {
             </div>
 
             {/* Chat Interface */}
-            <div className="h-full pb-16">
+            <div className="h-full">
               <ChatInterface />
             </div>
           </div>
