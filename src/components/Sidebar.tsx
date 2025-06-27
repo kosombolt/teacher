@@ -1,10 +1,10 @@
 import React from 'react';
 import { 
-  MessageSquare,
   Settings,
   HelpCircle,
   User,
-  Bot
+  Bot,
+  ClipboardList
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
@@ -29,8 +29,7 @@ interface SidebarProps {
 // Only secondary items that are NOT in the top navigation
 const sidebarItems: SidebarItem[] = [
   { id: "students", label: "Students", icon: User, badge: "247", section: "tools" },
-  { id: "quizzes", label: "Quizzes", icon: MessageSquare, section: "tools" },
-  { id: "comments", label: "Messages", icon: MessageSquare, badge: "12", section: "communication" },
+  { id: "quizzes", label: "Quizzes", icon: ClipboardList, section: "tools" },
   { id: "assistant", label: "AI Assistant", icon: Bot, section: "communication" },
   { id: "settings", label: "Settings", icon: Settings, section: "account" },
   { id: "help", label: "Help & Support", icon: HelpCircle, section: "account" },
