@@ -34,7 +34,8 @@ interface TabsListProps {
 export function TabsList({ children, className }: TabsListProps) {
   return (
     <div className={cn(
-      "inline-flex h-10 items-center justify-center rounded-lg bg-slate-800 p-1 text-slate-400",
+      "inline-flex h-10 items-center justify-center rounded-xl p-1 transition-all duration-300",
+      "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400",
       className
     )}>
       {children}
@@ -59,10 +60,10 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
     <button
       onClick={() => setActiveTab(value)}
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
         isActive 
-          ? "bg-gradient-to-r from-violet-500 to-pink-500 text-white shadow-sm" 
-          : "text-slate-400 hover:text-slate-100",
+          ? "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-medium" 
+          : "text-neutral-600 hover:text-neutral-900 hover:bg-white dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-700",
         className
       )}
     >
@@ -85,7 +86,7 @@ export function TabsContent({ value, children, className }: TabsContentProps) {
   if (activeTab !== value) return null;
 
   return (
-    <div className={cn("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className)}>
+    <div className={cn("mt-6 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 animate-fade-in", className)}>
       {children}
     </div>
   );
