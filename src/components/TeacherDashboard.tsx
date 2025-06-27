@@ -178,22 +178,22 @@ export function TeacherDashboard() {
         return (
           <div className="space-y-8">
             {/* Welcome Section - Student dashboard style */}
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-4">
               <h1 className={cn(
-                "text-3xl font-bold",
-                isDarkMode ? "text-white" : "text-gray-900"
+                "text-4xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent",
+                "transition-all duration-300"
               )}>
-                Welcome back, Sarah
+                Welcome back, Sarah! 👋
               </h1>
               <p className={cn(
-                "text-lg",
+                "text-lg max-w-2xl mx-auto",
                 isDarkMode ? "text-neutral-400" : "text-gray-600"
               )}>
-                Manage your courses and track student progress
+                Manage your courses and track student progress with powerful teaching tools
               </p>
             </div>
 
-            {/* Stats Cards - Matching student dashboard style */}
+            {/* Stats Cards - Matching student dashboard style exactly */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { 
@@ -230,8 +230,9 @@ export function TeacherDashboard() {
                 <Card 
                   key={stat.title}
                   variant="elevated"
+                  interactive
                   className={cn(
-                    "p-6 transition-all duration-300 hover:scale-105",
+                    "p-6 transition-all duration-300 hover:scale-105 group",
                     // Student dashboard matching styling
                     "bg-white dark:bg-neutral-800",
                     "border border-gray-100 dark:border-neutral-700",
@@ -240,27 +241,27 @@ export function TeacherDashboard() {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center text-2xl",
+                      "w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-transform duration-300 group-hover:scale-110",
                       "bg-gradient-to-r", stat.color,
                       "shadow-soft"
                     )}>
                       {stat.icon}
                     </div>
                     <div className={cn(
-                      "text-2xl font-bold",
+                      "text-2xl font-bold transition-colors duration-300",
                       isDarkMode ? "text-white" : "text-gray-900"
                     )}>
                       {stat.value}
                     </div>
                   </div>
                   <h3 className={cn(
-                    "font-medium mb-1",
+                    "font-medium mb-1 transition-colors duration-300",
                     isDarkMode ? "text-neutral-300" : "text-gray-700"
                   )}>
                     {stat.title}
                   </h3>
                   <p className={cn(
-                    "text-sm",
+                    "text-sm transition-colors duration-300",
                     stat.positive ? "text-success-600" : 
                     isDarkMode ? "text-neutral-500" : "text-gray-500"
                   )}>
@@ -273,16 +274,24 @@ export function TeacherDashboard() {
             {/* Course Management Section - Student dashboard style */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className={cn(
-                  "text-2xl font-semibold",
-                  isDarkMode ? "text-white" : "text-gray-900"
-                )}>
-                  Course Management
-                </h2>
+                <div>
+                  <h2 className={cn(
+                    "text-2xl font-bold transition-colors duration-300",
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  )}>
+                    Course Management
+                  </h2>
+                  <p className={cn(
+                    "text-sm mt-1 transition-colors duration-300",
+                    isDarkMode ? "text-neutral-400" : "text-gray-600"
+                  )}>
+                    Create, manage, and track your educational content
+                  </p>
+                </div>
                 <div className="flex gap-3">
                   <Button 
                     onClick={() => setShowCourseStudio(true)}
-                    className="gap-2"
+                    className="gap-2 shadow-medium hover:shadow-large"
                   >
                     <Video className="h-4 w-4" />
                     Course Studio
@@ -303,8 +312,9 @@ export function TeacherDashboard() {
                   <Card 
                     key={course.id} 
                     variant="elevated"
+                    interactive
                     className={cn(
-                      "p-6 transition-all duration-300 hover:scale-105",
+                      "p-6 transition-all duration-300 hover:scale-105 group",
                       // Student dashboard matching card style
                       "bg-white dark:bg-neutral-800",
                       "border border-gray-100 dark:border-neutral-700",
@@ -313,7 +323,7 @@ export function TeacherDashboard() {
                   >
                     <div className="flex items-start justify-between mb-4">
                       <h3 className={cn(
-                        "font-semibold text-lg",
+                        "font-semibold text-lg transition-colors duration-300",
                         isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         {course.title}
@@ -323,13 +333,14 @@ export function TeacherDashboard() {
                           course.status === 'active' ? 'success' :
                           course.status === 'completed' ? 'default' : 'warning'
                         }
+                        className="shadow-soft"
                       >
                         {course.status}
                       </Badge>
                     </div>
                     
                     <p className={cn(
-                      "text-sm mb-6 line-clamp-2",
+                      "text-sm mb-6 line-clamp-2 transition-colors duration-300",
                       isDarkMode ? "text-neutral-400" : "text-gray-600"
                     )}>
                       {course.description}
@@ -338,13 +349,13 @@ export function TeacherDashboard() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="text-center">
                         <div className={cn(
-                          "text-2xl font-bold",
+                          "text-2xl font-bold transition-colors duration-300",
                           isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.students}
                         </div>
                         <div className={cn(
-                          "text-xs",
+                          "text-xs transition-colors duration-300",
                           isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Students
@@ -352,13 +363,13 @@ export function TeacherDashboard() {
                       </div>
                       <div className="text-center">
                         <div className={cn(
-                          "text-2xl font-bold",
+                          "text-2xl font-bold transition-colors duration-300",
                           isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.completionRate}%
                         </div>
                         <div className={cn(
-                          "text-xs",
+                          "text-xs transition-colors duration-300",
                           isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Completion
@@ -366,7 +377,31 @@ export function TeacherDashboard() {
                       </div>
                     </div>
                     
-                    <Button variant="outline" className="w-full">
+                    {/* Progress Bar - Student dashboard style */}
+                    <div className="mb-4">
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className={cn(
+                          "transition-colors duration-300",
+                          isDarkMode ? "text-neutral-400" : "text-gray-600"
+                        )}>
+                          Progress
+                        </span>
+                        <span className={cn(
+                          "font-medium transition-colors duration-300",
+                          isDarkMode ? "text-white" : "text-gray-900"
+                        )}>
+                          {course.completedLessons}/{course.totalLessons}
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-2">
+                        <div 
+                          className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${(course.completedLessons / course.totalLessons) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <Button variant="outline" className="w-full group-hover:shadow-soft transition-all duration-300">
                       Manage Course
                     </Button>
                   </Card>
@@ -378,7 +413,7 @@ export function TeacherDashboard() {
       case "studio":
         return <ContentManager />;
       case "analytics":
-        return <CourseAnalytics />;
+        return <Analytics />;
       case "calendar":
         return <CalendarComponent />;
       case "students":
@@ -391,12 +426,13 @@ export function TeacherDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className={cn(
-                  "text-2xl font-bold",
+                  "text-2xl font-bold transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   AI Teaching Assistant
                 </h1>
                 <p className={cn(
+                  "transition-colors duration-300",
                   isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Get help with lesson planning, student engagement, and more
@@ -422,7 +458,7 @@ export function TeacherDashboard() {
         return (
           <div className="space-y-6">
             <h1 className={cn(
-              "text-2xl font-bold",
+              "text-2xl font-bold transition-colors duration-300",
               isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Comments & Discussions
@@ -437,6 +473,7 @@ export function TeacherDashboard() {
               )}
             >
               <p className={cn(
+                "transition-colors duration-300",
                 isDarkMode ? "text-neutral-400" : "text-gray-600"
               )}>
                 Comments management system coming soon...
@@ -448,7 +485,7 @@ export function TeacherDashboard() {
         return (
           <div className="space-y-6">
             <h1 className={cn(
-              "text-2xl font-bold",
+              "text-2xl font-bold transition-colors duration-300",
               isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Monetization
@@ -458,37 +495,42 @@ export function TeacherDashboard() {
                 {
                   title: "Subscription Plans",
                   description: "Set up recurring subscription plans for your courses",
-                  action: "Configure Plans"
+                  action: "Configure Plans",
+                  icon: "💳"
                 },
                 {
                   title: "One-time Purchases", 
                   description: "Sell individual courses or course bundles",
-                  action: "Set Pricing"
+                  action: "Set Pricing",
+                  icon: "🛒"
                 },
                 {
                   title: "Payment Gateway",
                   description: "Connect Stripe, PayPal, or other payment providers", 
-                  action: "Connect"
+                  action: "Connect",
+                  icon: "🔗"
                 }
               ].map((item, index) => (
                 <Card 
                   key={item.title}
                   variant="elevated"
+                  interactive
                   className={cn(
-                    "p-6",
+                    "p-6 transition-all duration-300 hover:scale-105 group",
                     "bg-white dark:bg-neutral-800",
                     "border border-gray-100 dark:border-neutral-700",
-                    "shadow-soft"
+                    "shadow-soft hover:shadow-medium"
                   )}
                 >
+                  <div className="text-3xl mb-4">{item.icon}</div>
                   <h3 className={cn(
-                    "text-lg font-semibold mb-2",
+                    "text-lg font-semibold mb-2 transition-colors duration-300",
                     isDarkMode ? "text-white" : "text-gray-900"
                   )}>
                     {item.title}
                   </h3>
                   <p className={cn(
-                    "text-sm mb-4",
+                    "text-sm mb-4 transition-colors duration-300",
                     isDarkMode ? "text-neutral-400" : "text-gray-600"
                   )}>
                     {item.description}
@@ -505,7 +547,7 @@ export function TeacherDashboard() {
         return (
           <div className="space-y-6">
             <h1 className={cn(
-              "text-2xl font-bold",
+              "text-2xl font-bold transition-colors duration-300",
               isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Settings
@@ -521,7 +563,7 @@ export function TeacherDashboard() {
                 )}
               >
                 <h3 className={cn(
-                  "text-lg font-semibold mb-4",
+                  "text-lg font-semibold mb-4 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Account Settings
@@ -529,7 +571,7 @@ export function TeacherDashboard() {
                 <div className="space-y-4">
                   <div>
                     <label className={cn(
-                      "block text-sm font-medium mb-2",
+                      "block text-sm font-medium mb-2 transition-colors duration-300",
                       isDarkMode ? "text-neutral-300" : "text-gray-700"
                     )}>
                       Display Name
@@ -538,7 +580,7 @@ export function TeacherDashboard() {
                   </div>
                   <div>
                     <label className={cn(
-                      "block text-sm font-medium mb-2",
+                      "block text-sm font-medium mb-2 transition-colors duration-300",
                       isDarkMode ? "text-neutral-300" : "text-gray-700"
                     )}>
                       Email
@@ -557,7 +599,7 @@ export function TeacherDashboard() {
                 )}
               >
                 <h3 className={cn(
-                  "text-lg font-semibold mb-4",
+                  "text-lg font-semibold mb-4 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Privacy Settings
@@ -566,13 +608,13 @@ export function TeacherDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className={cn(
-                        "font-medium",
+                        "font-medium transition-colors duration-300",
                         isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         Public Profile
                       </p>
                       <p className={cn(
-                        "text-sm",
+                        "text-sm transition-colors duration-300",
                         isDarkMode ? "text-neutral-400" : "text-gray-600"
                       )}>
                         Make your profile visible to students
@@ -583,13 +625,13 @@ export function TeacherDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className={cn(
-                        "font-medium",
+                        "font-medium transition-colors duration-300",
                         isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         Analytics Sharing
                       </p>
                       <p className={cn(
-                        "text-sm",
+                        "text-sm transition-colors duration-300",
                         isDarkMode ? "text-neutral-400" : "text-gray-600"
                       )}>
                         Share anonymous analytics data
@@ -606,7 +648,7 @@ export function TeacherDashboard() {
         return (
           <div className="space-y-6">
             <h1 className={cn(
-              "text-2xl font-bold",
+              "text-2xl font-bold transition-colors duration-300",
               isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Help & Support
@@ -614,21 +656,23 @@ export function TeacherDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card 
                 variant="elevated"
+                interactive
                 className={cn(
-                  "p-6",
+                  "p-6 transition-all duration-300 hover:scale-105",
                   "bg-white dark:bg-neutral-800",
                   "border border-gray-100 dark:border-neutral-700",
-                  "shadow-soft"
+                  "shadow-soft hover:shadow-medium"
                 )}
               >
+                <div className="text-3xl mb-4">📚</div>
                 <h3 className={cn(
-                  "text-lg font-semibold mb-2",
+                  "text-lg font-semibold mb-2 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Documentation
                 </h3>
                 <p className={cn(
-                  "text-sm mb-4",
+                  "text-sm mb-4 transition-colors duration-300",
                   isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Learn how to use all features of the platform
@@ -637,21 +681,23 @@ export function TeacherDashboard() {
               </Card>
               <Card 
                 variant="elevated"
+                interactive
                 className={cn(
-                  "p-6",
+                  "p-6 transition-all duration-300 hover:scale-105",
                   "bg-white dark:bg-neutral-800",
                   "border border-gray-100 dark:border-neutral-700",
-                  "shadow-soft"
+                  "shadow-soft hover:shadow-medium"
                 )}
               >
+                <div className="text-3xl mb-4">💬</div>
                 <h3 className={cn(
-                  "text-lg font-semibold mb-2",
+                  "text-lg font-semibold mb-2 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Contact Support
                 </h3>
                 <p className={cn(
-                  "text-sm mb-4",
+                  "text-sm mb-4 transition-colors duration-300",
                   isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Get help from our support team
@@ -700,13 +746,13 @@ export function TeacherDashboard() {
                 </div>
                 <div className="hidden sm:block">
                   <h1 className={cn(
-                    "font-bold text-lg",
+                    "font-bold text-lg transition-colors duration-300",
                     isDarkMode ? "text-white" : "text-gray-900"
                   )}>
                     Rafiq
                   </h1>
                   <p className={cn(
-                    "text-xs",
+                    "text-xs transition-colors duration-300",
                     isDarkMode ? "text-neutral-400" : "text-gray-600"
                   )}>
                     Teacher Dashboard
@@ -761,7 +807,7 @@ export function TeacherDashboard() {
               {/* Search */}
               <div className="relative hidden lg:block">
                 <Search className={cn(
-                  "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4",
+                  "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 transition-colors duration-300",
                   isDarkMode ? "text-neutral-400" : "text-gray-500"
                 )} />
                 <Input
@@ -773,7 +819,7 @@ export function TeacherDashboard() {
               {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-4 w-4" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full animate-pulse"></div>
               </Button>
 
               {/* Theme Toggle */}
