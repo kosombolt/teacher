@@ -9,12 +9,15 @@ import {
   Moon,
   Bell,
   Search,
-  Plus
+  Plus,
+  Menu,
+  X
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Avatar, AvatarFallback } from './ui/Avatar';
 import { Badge } from './ui/Badge';
+import { Sidebar } from './Sidebar';
 import { Dashboard } from './Dashboard';
 import { ContentManager } from './ContentManager';
 import { Analytics } from './Analytics';
@@ -23,6 +26,7 @@ import { CourseStudio } from './CourseStudio';
 import { CourseCreator } from './CourseCreator';
 import { CourseAnalytics } from './CourseAnalytics';
 import { QuizManager } from './QuizManager';
+import { StudentManager } from './StudentManager';
 import { AIAssistant } from './AIAssistant';
 import { cn } from '../utils/cn';
 
@@ -43,6 +47,7 @@ const navigationItems: NavItem[] = [
 export function TeacherDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showCourseStudio, setShowCourseStudio] = useState(false);
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [courses, setCourses] = useState([
@@ -355,6 +360,237 @@ export function TeacherDashboard() {
         return <CourseAnalytics />;
       case "calendar":
         return <CalendarComponent />;
+      case "students":
+        return <StudentManager />;
+      case "quizzes":
+        return <QuizManager />;
+      case "comments":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-neutral-900"
+            )}>
+              Comments & Discussions
+            </h1>
+            <div className={cn(
+              "rounded-2xl p-8 text-center border",
+              isDarkMode 
+                ? "bg-neutral-800 border-neutral-700" 
+                : "bg-white border-neutral-200"
+            )}>
+              <p className={cn(
+                isDarkMode ? "text-neutral-400" : "text-neutral-600"
+              )}>
+                Comments management system coming soon...
+              </p>
+            </div>
+          </div>
+        );
+      case "monetization":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-neutral-900"
+            )}>
+              Monetization
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Subscription Plans",
+                  description: "Set up recurring subscription plans for your courses",
+                  action: "Configure Plans"
+                },
+                {
+                  title: "One-time Purchases", 
+                  description: "Sell individual courses or course bundles",
+                  action: "Set Pricing"
+                },
+                {
+                  title: "Payment Gateway",
+                  description: "Connect Stripe, PayPal, or other payment providers", 
+                  action: "Connect"
+                }
+              ].map((item, index) => (
+                <div 
+                  key={item.title}
+                  className={cn(
+                    "rounded-2xl p-6 border",
+                    isDarkMode 
+                      ? "bg-neutral-800 border-neutral-700" 
+                      : "bg-white border-neutral-200"
+                  )}
+                >
+                  <h3 className={cn(
+                    "text-lg font-semibold mb-2",
+                    isDarkMode ? "text-white" : "text-neutral-900"
+                  )}>
+                    {item.title}
+                  </h3>
+                  <p className={cn(
+                    "text-sm mb-4",
+                    isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                  )}>
+                    {item.description}
+                  </p>
+                  <Button className="w-full" variant={index === 0 ? "default" : "outline"}>
+                    {item.action}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "settings":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-neutral-900"
+            )}>
+              Settings
+            </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className={cn(
+                "rounded-2xl p-6 border",
+                isDarkMode 
+                  ? "bg-neutral-800 border-neutral-700" 
+                  : "bg-white border-neutral-200"
+              )}>
+                <h3 className={cn(
+                  "text-lg font-semibold mb-4",
+                  isDarkMode ? "text-white" : "text-neutral-900"
+                )}>
+                  Account Settings
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className={cn(
+                      "block text-sm font-medium mb-2",
+                      isDarkMode ? "text-neutral-300" : "text-neutral-700"
+                    )}>
+                      Display Name
+                    </label>
+                    <Input defaultValue="Sarah Thompson" />
+                  </div>
+                  <div>
+                    <label className={cn(
+                      "block text-sm font-medium mb-2",
+                      isDarkMode ? "text-neutral-300" : "text-neutral-700"
+                    )}>
+                      Email
+                    </label>
+                    <Input type="email" defaultValue="sarah@example.com" />
+                  </div>
+                </div>
+              </div>
+              <div className={cn(
+                "rounded-2xl p-6 border",
+                isDarkMode 
+                  ? "bg-neutral-800 border-neutral-700" 
+                  : "bg-white border-neutral-200"
+              )}>
+                <h3 className={cn(
+                  "text-lg font-semibold mb-4",
+                  isDarkMode ? "text-white" : "text-neutral-900"
+                )}>
+                  Privacy Settings
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className={cn(
+                        "font-medium",
+                        isDarkMode ? "text-white" : "text-neutral-900"
+                      )}>
+                        Public Profile
+                      </p>
+                      <p className={cn(
+                        "text-sm",
+                        isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                      )}>
+                        Make your profile visible to students
+                      </p>
+                    </div>
+                    <input type="checkbox" className="rounded" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className={cn(
+                        "font-medium",
+                        isDarkMode ? "text-white" : "text-neutral-900"
+                      )}>
+                        Analytics Sharing
+                      </p>
+                      <p className={cn(
+                        "text-sm",
+                        isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                      )}>
+                        Share anonymous analytics data
+                      </p>
+                    </div>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case "help":
+        return (
+          <div className="space-y-6">
+            <h1 className={cn(
+              "text-2xl font-bold",
+              isDarkMode ? "text-white" : "text-neutral-900"
+            )}>
+              Help & Support
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className={cn(
+                "rounded-2xl p-6 border",
+                isDarkMode 
+                  ? "bg-neutral-800 border-neutral-700" 
+                  : "bg-white border-neutral-200"
+              )}>
+                <h3 className={cn(
+                  "text-lg font-semibold mb-2",
+                  isDarkMode ? "text-white" : "text-neutral-900"
+                )}>
+                  Documentation
+                </h3>
+                <p className={cn(
+                  "text-sm mb-4",
+                  isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                )}>
+                  Learn how to use all features of the platform
+                </p>
+                <Button variant="outline" className="w-full">View Docs</Button>
+              </div>
+              <div className={cn(
+                "rounded-2xl p-6 border",
+                isDarkMode 
+                  ? "bg-neutral-800 border-neutral-700" 
+                  : "bg-white border-neutral-200"
+              )}>
+                <h3 className={cn(
+                  "text-lg font-semibold mb-2",
+                  isDarkMode ? "text-white" : "text-neutral-900"
+                )}>
+                  Contact Support
+                </h3>
+                <p className={cn(
+                  "text-sm mb-4",
+                  isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                )}>
+                  Get help from our support team
+                </p>
+                <Button className="w-full">Contact Us</Button>
+              </div>
+            </div>
+          </div>
+        );
       default:
         return null;
     }
@@ -374,29 +610,40 @@ export function TeacherDashboard() {
       )}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo & Mobile Menu */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
-                <Video className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h1 className={cn(
-                  "font-bold text-lg",
-                  isDarkMode ? "text-white" : "text-neutral-900"
-                )}>
-                  Rafiq
-                </h1>
-                <p className={cn(
-                  "text-xs",
-                  isDarkMode ? "text-neutral-400" : "text-neutral-600"
-                )}>
-                  Teacher Dashboard
-                </p>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="lg:hidden"
+              >
+                {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
+                  <Video className="h-5 w-5 text-white" />
+                </div>
+                <div className="hidden sm:block">
+                  <h1 className={cn(
+                    "font-bold text-lg",
+                    isDarkMode ? "text-white" : "text-neutral-900"
+                  )}>
+                    Rafiq
+                  </h1>
+                  <p className={cn(
+                    "text-xs",
+                    isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                  )}>
+                    Teacher Dashboard
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Main Navigation */}
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -414,7 +661,7 @@ export function TeacherDashboard() {
                     )}
                   >
                     <Icon className="h-4 w-4" />
-                    <span className="hidden sm:inline">{item.label}</span>
+                    <span>{item.label}</span>
                     {item.badge && (
                       <Badge 
                         variant="outline"
@@ -438,7 +685,7 @@ export function TeacherDashboard() {
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
               {/* Search */}
-              <div className="relative hidden md:block">
+              <div className="relative hidden lg:block">
                 <Search className={cn(
                   "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4",
                   isDarkMode ? "text-neutral-400" : "text-neutral-500"
@@ -464,11 +711,6 @@ export function TeacherDashboard() {
                 {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
 
-              {/* Settings */}
-              <Button variant="ghost" size="icon">
-                <Settings className="h-4 w-4" />
-              </Button>
-
               {/* Profile */}
               <Avatar className="h-8 w-8">
                 <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium text-sm">
@@ -480,10 +722,36 @@ export function TeacherDashboard() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {renderContent()}
-      </main>
+      <div className="flex">
+        {/* Sidebar */}
+        <div className={cn(
+          "fixed inset-y-0 left-0 z-40 w-72 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0",
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full",
+          "pt-20 lg:pt-4 p-4"
+        )}>
+          <Sidebar 
+            activeTab={activeTab} 
+            onTabChange={setActiveTab}
+            isDarkMode={isDarkMode}
+            onToggleTheme={toggleTheme}
+          />
+        </div>
+
+        {/* Mobile Overlay */}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
+        {/* Main Content */}
+        <div className="flex-1 lg:ml-0">
+          <main className="p-6 max-w-6xl mx-auto">
+            {renderContent()}
+          </main>
+        </div>
+      </div>
 
       {/* AI Assistant */}
       <AIAssistant />

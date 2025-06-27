@@ -1,19 +1,10 @@
 import React from 'react';
 import { 
-  LayoutDashboard, 
-  Video, 
-  BarChart3, 
-  Users, 
-  Settings,
-  Upload,
   MessageSquare,
-  DollarSign,
-  Palette,
-  Bell,
+  Settings,
   HelpCircle,
-  Calendar,
-  FileText,
-  ClipboardList,
+  User,
+  Bot,
   Sun,
   Moon
 } from 'lucide-react';
@@ -37,19 +28,14 @@ interface SidebarProps {
   onToggleTheme: () => void;
 }
 
+// Only secondary items that are NOT in the top navigation
 const sidebarItems: SidebarItem[] = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, section: "main" },
-  { id: "content", label: "Content", icon: Video, section: "main" },
-  { id: "analytics", label: "Analytics", icon: BarChart3, section: "main" },
-  { id: "students", label: "Students", icon: Users, badge: "247", section: "main" },
-  { id: "calendar", label: "Calendar", icon: Calendar, section: "main" },
-  { id: "quizzes", label: "Quizzes", icon: ClipboardList, section: "main" },
-  { id: "comments", label: "Comments", icon: MessageSquare, badge: "12", section: "engagement" },
-  { id: "monetization", label: "Monetization", icon: DollarSign, section: "business" },
-  { id: "customization", label: "Customization", icon: Palette, section: "business" },
-  { id: "notifications", label: "Notifications", icon: Bell, section: "settings" },
-  { id: "settings", label: "Settings", icon: Settings, section: "settings" },
-  { id: "help", label: "Help & Support", icon: HelpCircle, section: "settings" },
+  { id: "students", label: "Students", icon: User, badge: "247", section: "tools" },
+  { id: "quizzes", label: "Quizzes", icon: MessageSquare, section: "tools" },
+  { id: "comments", label: "Messages", icon: MessageSquare, badge: "12", section: "communication" },
+  { id: "assistant", label: "AI Assistant", icon: Bot, section: "communication" },
+  { id: "settings", label: "Settings", icon: Settings, section: "account" },
+  { id: "help", label: "Help & Support", icon: HelpCircle, section: "account" },
 ];
 
 export function Sidebar({ activeTab, onTabChange, isDarkMode, onToggleTheme }: SidebarProps) {
@@ -61,54 +47,36 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onToggleTheme }: S
   }, {} as Record<string, SidebarItem[]>);
 
   const sectionTitles = {
-    main: 'Main',
-    engagement: 'Engagement',
-    business: 'Business',
-    settings: 'Settings'
+    tools: 'Teaching Tools',
+    communication: 'Communication',
+    account: 'Account'
   };
 
   return (
     <div className={cn(
-      "flex flex-col h-full border-r transition-all duration-300 lg:rounded-2xl lg:border backdrop-blur-sm",
+      "flex flex-col h-full border transition-all duration-300 rounded-2xl backdrop-blur-sm",
       isDarkMode 
         ? "bg-neutral-800/95 border-neutral-700" 
-        : "bg-white/95 border-neutral-200"
+        : "bg-white/95 border-neutral-200",
+      "shadow-soft"
     )}>
-      {/* Logo */}
+      {/* Header */}
       <div className={cn(
         "p-6 border-b transition-colors duration-300",
         isDarkMode ? "border-neutral-700" : "border-neutral-200"
       )}>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-glow">
-            <Video className="h-5 w-5 text-white" />
-          </div>
-          <div>
-            <h1 className={cn(
-              "font-semibold text-lg transition-colors duration-300",
-              isDarkMode ? "text-white" : "text-neutral-900"
-            )}>
-              Rafiq
-            </h1>
-            <p className={cn(
-              "text-xs transition-colors duration-300",
-              isDarkMode ? "text-neutral-400" : "text-neutral-600"
-            )}>
-              Teacher Dashboard
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className={cn(
-        "p-4 border-b transition-colors duration-300",
-        isDarkMode ? "border-neutral-700" : "border-neutral-200"
-      )}>
-        <Button className="w-full gap-2 bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 h-10 shadow-medium hover:shadow-large transition-all duration-300">
-          <Upload className="h-4 w-4" />
-          Upload Content
-        </Button>
+        <h2 className={cn(
+          "font-semibold text-lg",
+          isDarkMode ? "text-white" : "text-neutral-900"
+        )}>
+          Quick Access
+        </h2>
+        <p className={cn(
+          "text-sm",
+          isDarkMode ? "text-neutral-400" : "text-neutral-600"
+        )}>
+          Secondary tools and settings
+        </p>
       </div>
 
       {/* Navigation */}
