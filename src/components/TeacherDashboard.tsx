@@ -29,6 +29,7 @@ import { CourseAnalytics } from './CourseAnalytics';
 import { QuizManager } from './QuizManager';
 import { StudentManager } from './StudentManager';
 import { AIAssistant } from './AIAssistant';
+import { ChatInterface } from './ChatInterface';
 import { StartCourseModal } from './StartCourseModal';
 import { ProfileModal } from './ProfileModal';
 import { cn } from '../utils/cn';
@@ -369,6 +370,35 @@ export function TeacherDashboard() {
         return <StudentManager />;
       case "quizzes":
         return <QuizManager />;
+      case "assistant":
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className={cn(
+                  "text-2xl font-bold",
+                  isDarkMode ? "text-white" : "text-gray-900"
+                )}>
+                  AI Teaching Assistant
+                </h1>
+                <p className={cn(
+                  isDarkMode ? "text-neutral-400" : "text-gray-600"
+                )}>
+                  Get help with lesson planning, student engagement, and more
+                </p>
+              </div>
+            </div>
+            
+            <div className={cn(
+              "rounded-2xl border h-[calc(100vh-200px)] overflow-hidden",
+              isDarkMode 
+                ? "bg-neutral-800 border-neutral-700" 
+                : "bg-white border-gray-200 shadow-sm"
+            )}>
+              <ChatInterface />
+            </div>
+          </div>
+        );
       case "comments":
         return (
           <div className="space-y-6">
@@ -778,7 +808,7 @@ export function TeacherDashboard() {
         isDarkMode={isDarkMode}
       />
 
-      {/* AI Assistant */}
+      {/* AI Assistant - Floating Button */}
       <AIAssistant />
     </div>
   );
