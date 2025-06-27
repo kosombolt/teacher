@@ -110,18 +110,22 @@ export function Analytics() {
   const [dateRange, setDateRange] = useState('7d');
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 animate-fade-in">
+      {/* Enhanced Header with improved contrast */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Analytics</h1>
-          <p className="text-slate-400">Track your course performance and student engagement</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100 transition-colors duration-300">
+            Analytics
+          </h1>
+          <p className="text-gray-600 dark:text-slate-400 transition-colors duration-300">
+            Track your course performance and student engagement
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
-            className="px-3 py-2 bg-slate-800 border border-slate-600 rounded-md text-slate-100"
+            className="px-3 py-2 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md text-gray-900 dark:text-slate-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -144,85 +148,97 @@ export function Analytics() {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
-          {/* Key Metrics */}
+          {/* Enhanced Key Metrics with better text contrast */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-slate-400">Total Views</CardTitle>
-                  <Eye className="h-4 w-4 text-blue-400" />
+                  <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                    Total Views
+                  </CardTitle>
+                  <Eye className="h-4 w-4 text-blue-500" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">10.4K</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">10.4K</div>
                 <div className="flex items-center gap-1 text-xs">
-                  <TrendingUp className="h-3 w-3 text-green-400" />
-                  <span className="text-green-400">+12.5%</span>
+                  <TrendingUp className="h-3 w-3 text-success-600 dark:text-success-400" />
+                  <span className="text-success-600 dark:text-success-400">+12.5%</span>
+                  <span className="text-gray-500 dark:text-slate-500">vs last month</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-slate-400">Watch Time</CardTitle>
-                  <Clock className="h-4 w-4 text-purple-400" />
+                  <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                    Watch Time
+                  </CardTitle>
+                  <Clock className="h-4 w-4 text-purple-500" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">4,140h</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">4,140h</div>
                 <div className="flex items-center gap-1 text-xs">
-                  <TrendingUp className="h-3 w-3 text-green-400" />
-                  <span className="text-green-400">+8.2%</span>
+                  <TrendingUp className="h-3 w-3 text-success-600 dark:text-success-400" />
+                  <span className="text-success-600 dark:text-success-400">+8.2%</span>
+                  <span className="text-gray-500 dark:text-slate-500">vs last month</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-slate-400">Avg Engagement</CardTitle>
-                  <MessageSquare className="h-4 w-4 text-pink-400" />
+                  <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                    Avg Engagement
+                  </CardTitle>
+                  <MessageSquare className="h-4 w-4 text-pink-500" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">82%</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">82%</div>
                 <div className="flex items-center gap-1 text-xs">
-                  <TrendingUp className="h-3 w-3 text-green-400" />
-                  <span className="text-green-400">+5.1%</span>
+                  <TrendingUp className="h-3 w-3 text-success-600 dark:text-success-400" />
+                  <span className="text-success-600 dark:text-success-400">+5.1%</span>
+                  <span className="text-gray-500 dark:text-slate-500">vs last month</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-slate-400">Active Students</CardTitle>
-                  <Users className="h-4 w-4 text-cyan-400" />
+                  <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                    Active Students
+                  </CardTitle>
+                  <Users className="h-4 w-4 text-cyan-500" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">357</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">357</div>
                 <div className="flex items-center gap-1 text-xs">
-                  <TrendingUp className="h-3 w-3 text-green-400" />
-                  <span className="text-green-400">+15.3%</span>
+                  <TrendingUp className="h-3 w-3 text-success-600 dark:text-success-400" />
+                  <span className="text-success-600 dark:text-success-400">+15.3%</span>
+                  <span className="text-gray-500 dark:text-slate-500">vs last month</span>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Performance Chart */}
-          <Card className="bg-slate-800 border-slate-700">
+          {/* Enhanced Performance Chart */}
+          <Card variant="elevated">
             <CardHeader>
-              <CardTitle className="text-slate-100">Performance Trends</CardTitle>
+              <CardTitle className="text-gray-900 dark:text-slate-100">Performance Trends</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={analyticsData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="date" stroke="#94A3B8" />
-                    <YAxis stroke="#94A3B8" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-slate-600" />
+                    <XAxis dataKey="date" stroke="#6b7280" className="dark:stroke-slate-400" />
+                    <YAxis stroke="#6b7280" className="dark:stroke-slate-400" />
                     <Area 
                       type="monotone" 
                       dataKey="views" 
@@ -243,12 +259,12 @@ export function Analytics() {
             </CardContent>
           </Card>
 
-          {/* Top Courses This Month */}
-          <Card className="bg-slate-800 border-slate-700">
+          {/* Enhanced Top Courses Section */}
+          <Card variant="elevated">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-slate-100">Top Courses This Month</CardTitle>
-                <Badge className="bg-green-500/20 text-green-400">
+                <CardTitle className="text-gray-900 dark:text-slate-100">Top Courses This Month</CardTitle>
+                <Badge variant="success" className="shadow-soft">
                   ${topCourses.reduce((sum, course) => sum + course.monthlyEarnings, 0).toLocaleString()} earned
                 </Badge>
               </div>
@@ -256,22 +272,24 @@ export function Analytics() {
             <CardContent>
               <div className="space-y-4">
                 {topCourses.map((course, index) => (
-                  <div key={course.id} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-xl hover:bg-slate-700/70 transition-colors">
+                  <div key={course.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-700/50 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-700/70 transition-all duration-300">
                     <div className="flex items-center gap-4">
-                      {/* Rank Badge */}
-                      <div className="w-8 h-8 bg-gradient-to-r from-violet-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      {/* Enhanced Rank Badge */}
+                      <div className="w-8 h-8 bg-gradient-to-r from-violet-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-medium">
                         {index + 1}
                       </div>
                       
                       {/* Course Thumbnail */}
-                      <div className="w-12 h-12 bg-slate-600 rounded-lg flex items-center justify-center text-2xl">
+                      <div className="w-12 h-12 bg-gray-200 dark:bg-slate-600 rounded-lg flex items-center justify-center text-2xl shadow-soft">
                         {course.thumbnail}
                       </div>
                       
-                      {/* Course Info */}
+                      {/* Enhanced Course Info with better contrast */}
                       <div className="flex-1">
-                        <h3 className="font-semibold text-slate-100 mb-1">{course.title}</h3>
-                        <div className="flex items-center gap-4 text-sm text-slate-400">
+                        <h3 className="font-semibold text-gray-900 dark:text-slate-100 mb-1 transition-colors duration-300">
+                          {course.title}
+                        </h3>
+                        <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-slate-400 transition-colors duration-300">
                           <div className="flex items-center gap-1">
                             <Users className="h-3 w-3" />
                             <span>{course.students} students</span>
@@ -288,27 +306,27 @@ export function Analytics() {
                       </div>
                     </div>
                     
-                    {/* Earnings & Performance */}
+                    {/* Enhanced Earnings & Performance */}
                     <div className="text-right">
                       <div className="flex items-center gap-3">
                         {/* Monthly Earnings */}
                         <div>
-                          <div className="text-lg font-bold text-green-400">
+                          <div className="text-lg font-bold text-success-600 dark:text-success-400">
                             ${course.monthlyEarnings.toLocaleString()}
                           </div>
-                          <div className="text-xs text-slate-400">This month</div>
+                          <div className="text-xs text-gray-500 dark:text-slate-400">This month</div>
                         </div>
                         
                         {/* Total Earnings */}
                         <div>
-                          <div className="text-sm font-medium text-slate-300">
+                          <div className="text-sm font-medium text-gray-700 dark:text-slate-300">
                             ${course.totalEarnings.toLocaleString()}
                           </div>
-                          <div className="text-xs text-slate-400">Total earned</div>
+                          <div className="text-xs text-gray-500 dark:text-slate-400">Total earned</div>
                         </div>
                         
                         {/* Growth Badge */}
-                        <Badge className="bg-green-500/20 text-green-400 ml-2">
+                        <Badge variant="success" className="ml-2 shadow-soft">
                           {course.growth}
                         </Badge>
                       </div>
@@ -317,26 +335,26 @@ export function Analytics() {
                 ))}
               </div>
               
-              {/* Summary Stats */}
-              <div className="mt-6 pt-4 border-t border-slate-700">
+              {/* Enhanced Summary Stats */}
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-slate-700">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-slate-100">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
                       ${topCourses.reduce((sum, course) => sum + course.totalEarnings, 0).toLocaleString()}
                     </div>
-                    <div className="text-sm text-slate-400">Total Revenue</div>
+                    <div className="text-sm text-gray-600 dark:text-slate-400">Total Revenue</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-slate-100">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
                       {topCourses.reduce((sum, course) => sum + course.students, 0)}
                     </div>
-                    <div className="text-sm text-slate-400">Total Students</div>
+                    <div className="text-sm text-gray-600 dark:text-slate-400">Total Students</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-slate-100">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">
                       {Math.round(topCourses.reduce((sum, course) => sum + course.avgRating, 0) / topCourses.length * 10) / 10}
                     </div>
-                    <div className="text-sm text-slate-400">Avg Rating</div>
+                    <div className="text-sm text-gray-600 dark:text-slate-400">Avg Rating</div>
                   </div>
                 </div>
               </div>
@@ -346,18 +364,18 @@ export function Analytics() {
 
         <TabsContent value="engagement" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Student Retention */}
-            <Card className="bg-slate-800 border-slate-700">
+            {/* Enhanced Student Retention */}
+            <Card variant="elevated">
               <CardHeader>
-                <CardTitle className="text-slate-100">Student Retention</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-slate-100">Student Retention</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={retentionData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                      <XAxis dataKey="week" stroke="#94A3B8" />
-                      <YAxis stroke="#94A3B8" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-slate-600" />
+                      <XAxis dataKey="week" stroke="#6b7280" className="dark:stroke-slate-400" />
+                      <YAxis stroke="#6b7280" className="dark:stroke-slate-400" />
                       <Line 
                         type="monotone" 
                         dataKey="retention" 
@@ -370,10 +388,10 @@ export function Analytics() {
               </CardContent>
             </Card>
 
-            {/* Device Usage */}
-            <Card className="bg-slate-800 border-slate-700">
+            {/* Enhanced Device Usage */}
+            <Card variant="elevated">
               <CardHeader>
-                <CardTitle className="text-slate-100">Device Usage</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-slate-100">Device Usage</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -402,8 +420,8 @@ export function Analytics() {
                         className="w-3 h-3 rounded-full mx-auto mb-1" 
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-xs text-slate-400">{item.name}</span>
-                      <div className="text-sm font-medium text-slate-300">{item.value}%</div>
+                      <span className="text-xs text-gray-600 dark:text-slate-400">{item.name}</span>
+                      <div className="text-sm font-medium text-gray-900 dark:text-slate-300">{item.value}%</div>
                     </div>
                   ))}
                 </div>
@@ -413,27 +431,27 @@ export function Analytics() {
         </TabsContent>
 
         <TabsContent value="audience" className="space-y-6">
-          {/* Geography */}
-          <Card className="bg-slate-800 border-slate-700">
+          {/* Enhanced Geography */}
+          <Card variant="elevated">
             <CardHeader>
-              <CardTitle className="text-slate-100">Student Geography</CardTitle>
+              <CardTitle className="text-gray-900 dark:text-slate-100">Student Geography</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {geographyData.map((country, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-6 bg-slate-600 rounded"></div>
-                      <span className="text-slate-100">{country.country}</span>
+                      <div className="w-8 h-6 bg-gray-300 dark:bg-slate-600 rounded shadow-soft"></div>
+                      <span className="text-gray-900 dark:text-slate-100 font-medium">{country.country}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 bg-slate-700 rounded-full h-2">
+                      <div className="w-32 bg-gray-200 dark:bg-slate-700 rounded-full h-2">
                         <div 
-                          className="bg-gradient-to-r from-violet-500 to-pink-500 h-2 rounded-full"
+                          className="bg-gradient-to-r from-violet-500 to-pink-500 h-2 rounded-full transition-all duration-500"
                           style={{ width: `${country.percentage}%` }}
                         />
                       </div>
-                      <span className="text-slate-300 w-12 text-right">{country.students}</span>
+                      <span className="text-gray-700 dark:text-slate-300 w-12 text-right font-medium">{country.students}</span>
                     </div>
                   </div>
                 ))}
@@ -444,33 +462,39 @@ export function Analytics() {
 
         <TabsContent value="revenue" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-400">Total Revenue</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                  Total Revenue
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">$24,580</div>
-                <div className="text-xs text-green-400">+18.2% vs last month</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">$24,580</div>
+                <div className="text-xs text-success-600 dark:text-success-400">+18.2% vs last month</div>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-400">Avg Revenue per Student</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                  Avg Revenue per Student
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">$68.85</div>
-                <div className="text-xs text-green-400">+5.4% vs last month</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">$68.85</div>
+                <div className="text-xs text-success-600 dark:text-success-400">+5.4% vs last month</div>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-400">Conversion Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-slate-400">
+                  Conversion Rate
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-100">12.4%</div>
-                <div className="text-xs text-green-400">+2.1% vs last month</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-slate-100">12.4%</div>
+                <div className="text-xs text-success-600 dark:text-success-400">+2.1% vs last month</div>
               </CardContent>
             </Card>
           </div>
