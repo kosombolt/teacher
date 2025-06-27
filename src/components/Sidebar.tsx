@@ -4,9 +4,7 @@ import {
   Settings,
   HelpCircle,
   User,
-  Bot,
-  Sun,
-  Moon
+  Bot
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
@@ -38,7 +36,7 @@ const sidebarItems: SidebarItem[] = [
   { id: "help", label: "Help & Support", icon: HelpCircle, section: "account" },
 ];
 
-export function Sidebar({ activeTab, onTabChange, isDarkMode, onToggleTheme }: SidebarProps) {
+export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
   const groupedItems = sidebarItems.reduce((acc, item) => {
     const section = item.section || 'main';
     if (!acc[section]) acc[section] = [];
@@ -138,25 +136,11 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onToggleTheme }: S
         ))}
       </nav>
 
-      {/* Theme Toggle & Profile */}
+      {/* Profile */}
       <div className={cn(
-        "p-4 border-t space-y-3 transition-colors duration-300",
+        "p-4 border-t transition-colors duration-300",
         isDarkMode ? "border-neutral-700" : "border-neutral-200"
       )}>
-        <Button
-          onClick={onToggleTheme}
-          variant="ghost"
-          className={cn(
-            "w-full gap-2 justify-start transition-all duration-300 hover:shadow-medium",
-            isDarkMode 
-              ? "text-neutral-300 hover:bg-neutral-700 hover:text-white" 
-              : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
-          )}
-        >
-          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-        </Button>
-        
         <div className={cn(
           "flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-medium",
           isDarkMode 
