@@ -48,7 +48,7 @@ const navigationItems: NavItem[] = [
 
 export function TeacherDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false); // Changed default to false for light mode
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showCourseStudio, setShowCourseStudio] = useState(false);
   const [showCourseCreator, setShowCourseCreator] = useState(false);
@@ -104,7 +104,7 @@ export function TeacherDashboard() {
     }
   ]);
 
-  // Apply dark mode class to document
+  // Apply theme class to document
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -140,13 +140,13 @@ export function TeacherDashboard() {
     return (
       <div className={cn(
         "min-h-screen p-6 transition-all duration-500",
-        isDarkMode ? "bg-neutral-900" : "bg-neutral-50"
+        isDarkMode ? "bg-neutral-900" : "bg-gray-50"
       )}>
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h1 className={cn(
               "text-2xl font-semibold",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Create New Course
             </h1>
@@ -172,13 +172,13 @@ export function TeacherDashboard() {
             <div className="text-center space-y-2">
               <h1 className={cn(
                 "text-3xl font-bold",
-                isDarkMode ? "text-white" : "text-neutral-900"
+                isDarkMode ? "text-white" : "text-gray-900"
               )}>
                 Welcome back, Sarah
               </h1>
               <p className={cn(
                 "text-lg",
-                isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                isDarkMode ? "text-neutral-400" : "text-gray-600"
               )}>
                 Manage your courses and track student progress
               </p>
@@ -220,29 +220,29 @@ export function TeacherDashboard() {
                     "rounded-2xl p-6 border transition-all duration-300 hover:scale-105",
                     isDarkMode 
                       ? "bg-neutral-800 border-neutral-700 hover:border-neutral-600" 
-                      : "bg-white border-neutral-200 hover:border-neutral-300",
-                    "shadow-soft hover:shadow-large"
+                      : "bg-white border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md",
+                    "hover:shadow-large"
                   )}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl">{stat.icon}</span>
                     <div className={cn(
                       "text-2xl font-bold",
-                      isDarkMode ? "text-white" : "text-neutral-900"
+                      isDarkMode ? "text-white" : "text-gray-900"
                     )}>
                       {stat.value}
                     </div>
                   </div>
                   <h3 className={cn(
                     "font-medium mb-1",
-                    isDarkMode ? "text-neutral-300" : "text-neutral-700"
+                    isDarkMode ? "text-neutral-300" : "text-gray-700"
                   )}>
                     {stat.title}
                   </h3>
                   <p className={cn(
                     "text-sm",
                     stat.positive ? "text-green-500" : 
-                    isDarkMode ? "text-neutral-500" : "text-neutral-500"
+                    isDarkMode ? "text-neutral-500" : "text-gray-500"
                   )}>
                     {stat.change}
                   </p>
@@ -255,7 +255,7 @@ export function TeacherDashboard() {
               <div className="flex items-center justify-between">
                 <h2 className={cn(
                   "text-2xl font-semibold",
-                  isDarkMode ? "text-white" : "text-neutral-900"
+                  isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Course Management
                 </h2>
@@ -286,14 +286,14 @@ export function TeacherDashboard() {
                       "rounded-2xl p-6 border transition-all duration-300 hover:scale-105",
                       isDarkMode 
                         ? "bg-neutral-800 border-neutral-700 hover:border-neutral-600" 
-                        : "bg-white border-neutral-200 hover:border-neutral-300",
-                      "shadow-soft hover:shadow-large"
+                        : "bg-white border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md",
+                      "hover:shadow-large"
                     )}
                   >
                     <div className="flex items-start justify-between mb-4">
                       <h3 className={cn(
                         "font-semibold text-lg",
-                        isDarkMode ? "text-white" : "text-neutral-900"
+                        isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         {course.title}
                       </h3>
@@ -312,7 +312,7 @@ export function TeacherDashboard() {
                     
                     <p className={cn(
                       "text-sm mb-6 line-clamp-2",
-                      isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                      isDarkMode ? "text-neutral-400" : "text-gray-600"
                     )}>
                       {course.description}
                     </p>
@@ -321,13 +321,13 @@ export function TeacherDashboard() {
                       <div className="text-center">
                         <div className={cn(
                           "text-2xl font-bold",
-                          isDarkMode ? "text-white" : "text-neutral-900"
+                          isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.students}
                         </div>
                         <div className={cn(
                           "text-xs",
-                          isDarkMode ? "text-neutral-500" : "text-neutral-500"
+                          isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Students
                         </div>
@@ -335,13 +335,13 @@ export function TeacherDashboard() {
                       <div className="text-center">
                         <div className={cn(
                           "text-2xl font-bold",
-                          isDarkMode ? "text-white" : "text-neutral-900"
+                          isDarkMode ? "text-white" : "text-gray-900"
                         )}>
                           {course.completionRate}%
                         </div>
                         <div className={cn(
                           "text-xs",
-                          isDarkMode ? "text-neutral-500" : "text-neutral-500"
+                          isDarkMode ? "text-neutral-500" : "text-gray-500"
                         )}>
                           Completion
                         </div>
@@ -372,7 +372,7 @@ export function TeacherDashboard() {
           <div className="space-y-6">
             <h1 className={cn(
               "text-2xl font-bold",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Comments & Discussions
             </h1>
@@ -380,10 +380,10 @@ export function TeacherDashboard() {
               "rounded-2xl p-8 text-center border",
               isDarkMode 
                 ? "bg-neutral-800 border-neutral-700" 
-                : "bg-white border-neutral-200"
+                : "bg-white border-gray-200 shadow-sm"
             )}>
               <p className={cn(
-                isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                isDarkMode ? "text-neutral-400" : "text-gray-600"
               )}>
                 Comments management system coming soon...
               </p>
@@ -395,7 +395,7 @@ export function TeacherDashboard() {
           <div className="space-y-6">
             <h1 className={cn(
               "text-2xl font-bold",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Monetization
             </h1>
@@ -423,18 +423,18 @@ export function TeacherDashboard() {
                     "rounded-2xl p-6 border",
                     isDarkMode 
                       ? "bg-neutral-800 border-neutral-700" 
-                      : "bg-white border-neutral-200"
+                      : "bg-white border-gray-200 shadow-sm"
                   )}
                 >
                   <h3 className={cn(
                     "text-lg font-semibold mb-2",
-                    isDarkMode ? "text-white" : "text-neutral-900"
+                    isDarkMode ? "text-white" : "text-gray-900"
                   )}>
                     {item.title}
                   </h3>
                   <p className={cn(
                     "text-sm mb-4",
-                    isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                    isDarkMode ? "text-neutral-400" : "text-gray-600"
                   )}>
                     {item.description}
                   </p>
@@ -451,7 +451,7 @@ export function TeacherDashboard() {
           <div className="space-y-6">
             <h1 className={cn(
               "text-2xl font-bold",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Settings
             </h1>
@@ -460,11 +460,11 @@ export function TeacherDashboard() {
                 "rounded-2xl p-6 border",
                 isDarkMode 
                   ? "bg-neutral-800 border-neutral-700" 
-                  : "bg-white border-neutral-200"
+                  : "bg-white border-gray-200 shadow-sm"
               )}>
                 <h3 className={cn(
                   "text-lg font-semibold mb-4",
-                  isDarkMode ? "text-white" : "text-neutral-900"
+                  isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Account Settings
                 </h3>
@@ -472,7 +472,7 @@ export function TeacherDashboard() {
                   <div>
                     <label className={cn(
                       "block text-sm font-medium mb-2",
-                      isDarkMode ? "text-neutral-300" : "text-neutral-700"
+                      isDarkMode ? "text-neutral-300" : "text-gray-700"
                     )}>
                       Display Name
                     </label>
@@ -481,7 +481,7 @@ export function TeacherDashboard() {
                   <div>
                     <label className={cn(
                       "block text-sm font-medium mb-2",
-                      isDarkMode ? "text-neutral-300" : "text-neutral-700"
+                      isDarkMode ? "text-neutral-300" : "text-gray-700"
                     )}>
                       Email
                     </label>
@@ -493,11 +493,11 @@ export function TeacherDashboard() {
                 "rounded-2xl p-6 border",
                 isDarkMode 
                   ? "bg-neutral-800 border-neutral-700" 
-                  : "bg-white border-neutral-200"
+                  : "bg-white border-gray-200 shadow-sm"
               )}>
                 <h3 className={cn(
                   "text-lg font-semibold mb-4",
-                  isDarkMode ? "text-white" : "text-neutral-900"
+                  isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Privacy Settings
                 </h3>
@@ -506,13 +506,13 @@ export function TeacherDashboard() {
                     <div>
                       <p className={cn(
                         "font-medium",
-                        isDarkMode ? "text-white" : "text-neutral-900"
+                        isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         Public Profile
                       </p>
                       <p className={cn(
                         "text-sm",
-                        isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                        isDarkMode ? "text-neutral-400" : "text-gray-600"
                       )}>
                         Make your profile visible to students
                       </p>
@@ -523,13 +523,13 @@ export function TeacherDashboard() {
                     <div>
                       <p className={cn(
                         "font-medium",
-                        isDarkMode ? "text-white" : "text-neutral-900"
+                        isDarkMode ? "text-white" : "text-gray-900"
                       )}>
                         Analytics Sharing
                       </p>
                       <p className={cn(
                         "text-sm",
-                        isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                        isDarkMode ? "text-neutral-400" : "text-gray-600"
                       )}>
                         Share anonymous analytics data
                       </p>
@@ -546,7 +546,7 @@ export function TeacherDashboard() {
           <div className="space-y-6">
             <h1 className={cn(
               "text-2xl font-bold",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Help & Support
             </h1>
@@ -555,17 +555,17 @@ export function TeacherDashboard() {
                 "rounded-2xl p-6 border",
                 isDarkMode 
                   ? "bg-neutral-800 border-neutral-700" 
-                  : "bg-white border-neutral-200"
+                  : "bg-white border-gray-200 shadow-sm"
               )}>
                 <h3 className={cn(
                   "text-lg font-semibold mb-2",
-                  isDarkMode ? "text-white" : "text-neutral-900"
+                  isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Documentation
                 </h3>
                 <p className={cn(
                   "text-sm mb-4",
-                  isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                  isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Learn how to use all features of the platform
                 </p>
@@ -575,17 +575,17 @@ export function TeacherDashboard() {
                 "rounded-2xl p-6 border",
                 isDarkMode 
                   ? "bg-neutral-800 border-neutral-700" 
-                  : "bg-white border-neutral-200"
+                  : "bg-white border-gray-200 shadow-sm"
               )}>
                 <h3 className={cn(
                   "text-lg font-semibold mb-2",
-                  isDarkMode ? "text-white" : "text-neutral-900"
+                  isDarkMode ? "text-white" : "text-gray-900"
                 )}>
                   Contact Support
                 </h3>
                 <p className={cn(
                   "text-sm mb-4",
-                  isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                  isDarkMode ? "text-neutral-400" : "text-gray-600"
                 )}>
                   Get help from our support team
                 </p>
@@ -602,14 +602,14 @@ export function TeacherDashboard() {
   return (
     <div className={cn(
       "min-h-screen transition-all duration-500",
-      isDarkMode ? "bg-neutral-900" : "bg-neutral-50"
+      isDarkMode ? "bg-neutral-900" : "bg-gray-50"
     )}>
       {/* Top Navigation Bar */}
       <nav className={cn(
         "sticky top-0 z-50 border-b backdrop-blur-sm transition-all duration-300",
         isDarkMode 
           ? "bg-neutral-800/90 border-neutral-700" 
-          : "bg-white/90 border-neutral-200"
+          : "bg-white/90 border-gray-200"
       )}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -631,13 +631,13 @@ export function TeacherDashboard() {
                 <div className="hidden sm:block">
                   <h1 className={cn(
                     "font-bold text-lg",
-                    isDarkMode ? "text-white" : "text-neutral-900"
+                    isDarkMode ? "text-white" : "text-gray-900"
                   )}>
                     Rafiq
                   </h1>
                   <p className={cn(
                     "text-xs",
-                    isDarkMode ? "text-neutral-400" : "text-neutral-600"
+                    isDarkMode ? "text-neutral-400" : "text-gray-600"
                   )}>
                     Teacher Dashboard
                   </p>
@@ -660,7 +660,7 @@ export function TeacherDashboard() {
                         ? "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-lg"
                         : isDarkMode
                           ? "text-neutral-300 hover:bg-neutral-700 hover:text-white"
-                          : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -674,7 +674,7 @@ export function TeacherDashboard() {
                             ? "bg-white/20 text-white border-white/30"
                             : isDarkMode
                               ? "bg-neutral-700 text-neutral-300 border-neutral-600"
-                              : "bg-neutral-100 text-neutral-600 border-neutral-200"
+                              : "bg-gray-100 text-gray-600 border-gray-200"
                         )}
                       >
                         {item.badge}
@@ -691,7 +691,7 @@ export function TeacherDashboard() {
               <div className="relative hidden lg:block">
                 <Search className={cn(
                   "absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4",
-                  isDarkMode ? "text-neutral-400" : "text-neutral-500"
+                  isDarkMode ? "text-neutral-400" : "text-gray-500"
                 )} />
                 <Input
                   placeholder="Search..."
@@ -710,6 +710,10 @@ export function TeacherDashboard() {
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
+                className={cn(
+                  "transition-all duration-300",
+                  isDarkMode ? "text-yellow-400 hover:text-yellow-300" : "text-gray-600 hover:text-gray-900"
+                )}
               >
                 {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>

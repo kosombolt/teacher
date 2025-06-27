@@ -54,23 +54,23 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
       "flex flex-col h-full border transition-all duration-300 rounded-2xl backdrop-blur-sm",
       isDarkMode 
         ? "bg-neutral-800/95 border-neutral-700" 
-        : "bg-white/95 border-neutral-200",
+        : "bg-white/95 border-gray-200 shadow-sm",
       "shadow-soft"
     )}>
       {/* Header */}
       <div className={cn(
         "p-6 border-b transition-colors duration-300",
-        isDarkMode ? "border-neutral-700" : "border-neutral-200"
+        isDarkMode ? "border-neutral-700" : "border-gray-200"
       )}>
         <h2 className={cn(
           "font-semibold text-lg",
-          isDarkMode ? "text-white" : "text-neutral-900"
+          isDarkMode ? "text-white" : "text-gray-900"
         )}>
           Quick Access
         </h2>
         <p className={cn(
           "text-sm",
-          isDarkMode ? "text-neutral-400" : "text-neutral-600"
+          isDarkMode ? "text-neutral-400" : "text-gray-600"
         )}>
           Secondary tools and settings
         </p>
@@ -82,7 +82,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
           <div key={section} className="mb-6">
             <h3 className={cn(
               "text-xs font-medium uppercase tracking-wider mb-3 transition-colors duration-300",
-              isDarkMode ? "text-neutral-500" : "text-neutral-500"
+              isDarkMode ? "text-neutral-500" : "text-gray-500"
             )}>
               {sectionTitles[section as keyof typeof sectionTitles]}
             </h3>
@@ -102,7 +102,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
                           : "bg-gradient-to-r from-primary-50 to-secondary-50 text-primary-600 border border-primary-200 shadow-medium"
                         : isDarkMode
                           ? "text-neutral-300 hover:bg-neutral-700 hover:text-white"
-                          : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
                     <Icon className={cn(
@@ -121,7 +121,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
                               : "bg-primary-100 text-primary-600 border-primary-200"
                             : isDarkMode
                               ? "bg-neutral-700 text-neutral-300 border-neutral-600"
-                              : "bg-neutral-100 text-neutral-600 border-neutral-200"
+                              : "bg-gray-100 text-gray-600 border-gray-200"
                         )}
                       >
                         {item.badge}
@@ -138,13 +138,13 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
       {/* Profile */}
       <div className={cn(
         "p-4 border-t transition-colors duration-300",
-        isDarkMode ? "border-neutral-700" : "border-neutral-200"
+        isDarkMode ? "border-neutral-700" : "border-gray-200"
       )}>
         <div className={cn(
           "flex items-center gap-3 p-3 rounded-xl transition-all duration-300 cursor-pointer hover:shadow-medium",
           isDarkMode 
             ? "bg-neutral-700/50 hover:bg-neutral-700" 
-            : "bg-neutral-100/50 hover:bg-neutral-100"
+            : "bg-gray-100/50 hover:bg-gray-100"
         )}>
           <Avatar className="h-10 w-10">
             <AvatarFallback className="bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium">
@@ -154,13 +154,13 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode }: SidebarProps) {
           <div className="flex-1 min-w-0">
             <p className={cn(
               "font-medium truncate transition-colors duration-300",
-              isDarkMode ? "text-white" : "text-neutral-900"
+              isDarkMode ? "text-white" : "text-gray-900"
             )}>
               Sarah Thompson
             </p>
             <p className={cn(
               "text-xs truncate transition-colors duration-300",
-              isDarkMode ? "text-neutral-400" : "text-neutral-600"
+              isDarkMode ? "text-neutral-400" : "text-gray-600"
             )}>
               Course Creator
             </p>

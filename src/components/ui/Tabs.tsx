@@ -35,7 +35,7 @@ export function TabsList({ children, className }: TabsListProps) {
   return (
     <div className={cn(
       "inline-flex h-10 items-center justify-center rounded-xl p-1 transition-all duration-300",
-      "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400",
+      "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-neutral-400",
       className
     )}>
       {children}
@@ -63,7 +63,7 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
         "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
         isActive 
           ? "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-medium" 
-          : "text-neutral-600 hover:text-neutral-900 hover:bg-white dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-700",
+          : "text-gray-600 hover:text-gray-900 hover:bg-white dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-700",
         className
       )}
     >

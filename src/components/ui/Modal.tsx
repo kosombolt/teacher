@@ -24,7 +24,7 @@ export function Modal({ open, onOpenChange, children, className }: ModalProps) {
       {/* Modal Content */}
       <div className={cn(
         "relative z-50 w-full max-w-4xl max-h-[90vh] overflow-hidden",
-        "bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700",
+        "bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700",
         "rounded-2xl shadow-2xl animate-in fade-in-0 zoom-in-95 duration-300",
         className
       )}>
@@ -41,7 +41,7 @@ interface ModalHeaderProps {
 
 export function ModalHeader({ children, onClose }: ModalHeaderProps) {
   return (
-    <div className="flex items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700">
+    <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
       <div className="flex-1">
         {children}
       </div>
@@ -50,7 +50,7 @@ export function ModalHeader({ children, onClose }: ModalHeaderProps) {
           variant="ghost"
           size="icon"
           onClick={onClose}
-          className="h-8 w-8 text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+          className="h-8 w-8 text-gray-500 hover:text-gray-700 dark:text-neutral-500 dark:hover:text-neutral-300"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -80,7 +80,7 @@ interface ModalFooterProps {
 export function ModalFooter({ children, className }: ModalFooterProps) {
   return (
     <div className={cn(
-      "flex items-center justify-end gap-3 p-6 border-t border-neutral-200 dark:border-neutral-700",
+      "flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-neutral-700",
       className
     )}>
       {children}

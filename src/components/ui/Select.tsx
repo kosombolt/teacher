@@ -28,14 +28,14 @@ export function Select({ options, value, onChange, placeholder, className }: Sel
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "flex h-10 w-full items-center justify-between rounded-xl border px-3 py-2 text-sm transition-all duration-300",
-          "border-neutral-300 bg-white text-neutral-900 hover:border-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20",
+          "border-gray-300 bg-white text-gray-900 hover:border-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20",
           "dark:border-neutral-600 dark:bg-neutral-800 dark:text-white dark:hover:border-neutral-500 dark:focus:border-primary-400",
           className
         )}
       >
         <div className="flex items-center gap-2">
           {selectedOption?.icon}
-          <span className={selectedOption ? "text-neutral-900 dark:text-white" : "text-neutral-500"}>
+          <span className={selectedOption ? "text-gray-900 dark:text-white" : "text-gray-500"}>
             {selectedOption?.label || placeholder}
           </span>
         </div>
@@ -51,7 +51,7 @@ export function Select({ options, value, onChange, placeholder, className }: Sel
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-60 overflow-auto rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-xl">
+          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-60 overflow-auto rounded-xl border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-xl">
             {options.map((option) => (
               <button
                 key={option.value}
@@ -61,7 +61,7 @@ export function Select({ options, value, onChange, placeholder, className }: Sel
                   setIsOpen(false);
                 }}
                 className={cn(
-                  "flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-700",
+                  "flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-neutral-700",
                   value === option.value && "bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
                 )}
               >
@@ -69,7 +69,7 @@ export function Select({ options, value, onChange, placeholder, className }: Sel
                 <div className="flex-1">
                   <div className="font-medium">{option.label}</div>
                   {option.description && (
-                    <div className="text-xs text-neutral-500">{option.description}</div>
+                    <div className="text-xs text-gray-500">{option.description}</div>
                   )}
                 </div>
                 {value === option.value && (
