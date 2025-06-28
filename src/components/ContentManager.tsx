@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Video, FileText, Search, Filter, MoreVertical, Play, Eye, Edit, Trash2, Download, Share, Settings } from 'lucide-react';
+import { BookOpen, Video, FileText, Search, Filter, MoreVertical, Play, Eye, Edit, Trash2, Download, Share, Settings } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
@@ -20,6 +20,10 @@ interface ContentItem {
   thumbnail?: string;
   description: string;
   category: string;
+}
+
+interface ContentManagerProps {
+  onStartCourse: () => void;
 }
 
 const mockContent: ContentItem[] = [
@@ -72,7 +76,7 @@ const mockContent: ContentItem[] = [
   }
 ];
 
-export function ContentManager() {
+export function ContentManager({ onStartCourse }: ContentManagerProps) {
   const [content, setContent] = useState<ContentItem[]>(mockContent);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -115,11 +119,11 @@ export function ContentManager() {
           <p className="text-gray-600 dark:text-neutral-400">Manage your videos, documents, and course materials</p>
         </div>
         <Button 
-          onClick={() => setIsUploadOpen(true)}
+          onClick={onStartCourse}
           className="gap-2"
         >
-          <Upload className="h-4 w-4" />
-          Upload Content
+          <BookOpen className="h-4 w-4" />
+          Start Course
         </Button>
       </div>
 
@@ -247,7 +251,7 @@ export function ContentManager() {
             
             <TabsContent value="single" className="space-y-4">
               <div className="border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg p-8 text-center">
-                <Upload className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+                <BookOpen className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                   Upload your content
                 </h3>
@@ -270,7 +274,7 @@ export function ContentManager() {
             
             <TabsContent value="bulk" className="space-y-4">
               <div className="border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg p-8 text-center">
-                <Upload className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+                <BookOpen className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                   Bulk Upload
                 </h3>

@@ -317,14 +317,6 @@ export function TeacherDashboard() {
                     <Video className="h-4 w-4" />
                     Course Studio
                   </a>
-                  <Button 
-                    onClick={() => setShowStartCourseModal(true)}
-                    variant="outline"
-                    className="gap-2"
-                  >
-                    <BookOpen className="h-4 w-4" />
-                    Start Course
-                  </Button>
                 </div>
               </div>
               
@@ -432,7 +424,7 @@ export function TeacherDashboard() {
           </div>
         );
       case "studio":
-        return <ContentManager />;
+        return <ContentManager onStartCourse={() => setShowStartCourseModal(true)} />;
       case "analytics":
         return <Analytics />;
       case "calendar":
