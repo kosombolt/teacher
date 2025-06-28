@@ -14,7 +14,16 @@ import {
   Target,
   Sparkles,
   Check,
-  AlertCircle
+  AlertCircle,
+  GraduationCap,
+  Briefcase,
+  Palette,
+  Code,
+  Calculator,
+  Globe,
+  Heart,
+  Music,
+  Camera
 } from 'lucide-react';
 import { Modal, ModalHeader, ModalContent, ModalFooter } from './ui/Modal';
 import { Button } from './ui/Button';
@@ -60,16 +69,16 @@ const difficultyOptions = [
 ];
 
 const categoryOptions = [
-  { value: 'programming', label: 'Programming', icon: '💻' },
-  { value: 'science', label: 'Science', icon: '🔬' },
-  { value: 'business', label: 'Business', icon: '💼' },
-  { value: 'design', label: 'Design', icon: '🎨' },
-  { value: 'mathematics', label: 'Mathematics', icon: '📊' },
-  { value: 'language', label: 'Language', icon: '🗣️' },
-  { value: 'health', label: 'Health & Fitness', icon: '💪' },
-  { value: 'music', label: 'Music', icon: '🎵' },
-  { value: 'photography', label: 'Photography', icon: '📸' },
-  { value: 'other', label: 'Other', icon: '📚' }
+  { value: 'programming', label: 'Programming', icon: <Code className="h-4 w-4 text-blue-500" /> },
+  { value: 'science', label: 'Science', icon: <GraduationCap className="h-4 w-4 text-green-500" /> },
+  { value: 'business', label: 'Business', icon: <Briefcase className="h-4 w-4 text-purple-500" /> },
+  { value: 'design', label: 'Design', icon: <Palette className="h-4 w-4 text-pink-500" /> },
+  { value: 'mathematics', label: 'Mathematics', icon: <Calculator className="h-4 w-4 text-orange-500" /> },
+  { value: 'language', label: 'Language', icon: <Globe className="h-4 w-4 text-cyan-500" /> },
+  { value: 'health', label: 'Health & Fitness', icon: <Heart className="h-4 w-4 text-red-500" /> },
+  { value: 'music', label: 'Music', icon: <Music className="h-4 w-4 text-indigo-500" /> },
+  { value: 'photography', label: 'Photography', icon: <Camera className="h-4 w-4 text-yellow-500" /> },
+  { value: 'other', label: 'Other', icon: <BookOpen className="h-4 w-4 text-gray-500" /> }
 ];
 
 export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModalProps) {
@@ -414,11 +423,7 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                     Category *
                   </label>
                   <Select
-                    options={categoryOptions.map(cat => ({
-                      value: cat.value,
-                      label: cat.label,
-                      icon: <span className="text-lg">{cat.icon}</span>
-                    }))}
+                    options={categoryOptions}
                     value={courseData.category}
                     onChange={(value) => setCourseData(prev => ({ ...prev, category: value }))}
                     placeholder="Select a category"

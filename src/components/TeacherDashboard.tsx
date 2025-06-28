@@ -12,7 +12,12 @@ import {
   Plus,
   Menu,
   X,
-  BookOpen
+  BookOpen,
+  Users,
+  TrendingUp,
+  Award,
+  Target,
+  Clock
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -177,13 +182,13 @@ export function TeacherDashboard() {
       case "dashboard":
         return (
           <div className="space-y-8">
-            {/* Welcome Section - Student dashboard style */}
+            {/* Welcome Section - Professional greeting without emoji */}
             <div className="text-center space-y-4">
               <h1 className={cn(
                 "text-4xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent",
                 "transition-all duration-300"
               )}>
-                Welcome back, Sarah! 👋
+                Welcome back, Sarah!
               </h1>
               <p className={cn(
                 "text-lg max-w-2xl mx-auto",
@@ -193,7 +198,7 @@ export function TeacherDashboard() {
               </p>
             </div>
 
-            {/* Stats Cards - Matching student dashboard style exactly */}
+            {/* Stats Cards - Using Lucide icons instead of emojis */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { 
@@ -201,14 +206,14 @@ export function TeacherDashboard() {
                   value: "127", 
                   change: "+12 this month",
                   positive: true,
-                  icon: "👥",
+                  icon: Users,
                   color: "from-blue-500 to-cyan-500"
                 },
                 { 
                   title: "Active Courses", 
                   value: courses.filter(c => c.status === 'active').length.toString(), 
                   change: `${courses.length} total`,
-                  icon: "📚",
+                  icon: BookOpen,
                   color: "from-green-500 to-emerald-500"
                 },
                 { 
@@ -216,59 +221,62 @@ export function TeacherDashboard() {
                   value: "78%", 
                   change: "+5% this month",
                   positive: true,
-                  icon: "✅",
+                  icon: Target,
                   color: "from-purple-500 to-violet-500"
                 },
                 { 
                   title: "Course Rating", 
                   value: "4.8", 
                   change: "Based on reviews",
-                  icon: "⭐",
+                  icon: Award,
                   color: "from-orange-500 to-yellow-500"
                 }
-              ].map((stat, index) => (
-                <Card 
-                  key={stat.title}
-                  variant="elevated"
-                  interactive
-                  className={cn(
-                    "p-6 transition-all duration-300 hover:scale-105 group",
-                    // Student dashboard matching styling
-                    "bg-white dark:bg-neutral-800",
-                    "border border-gray-100 dark:border-neutral-700",
-                    "shadow-soft hover:shadow-medium"
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-transform duration-300 group-hover:scale-110",
-                      "bg-gradient-to-r", stat.color,
-                      "shadow-soft"
-                    )}>
-                      {stat.icon}
+              ].map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <Card 
+                    key={stat.title}
+                    variant="elevated"
+                    interactive
+                    className={cn(
+                      "p-6 transition-all duration-300 hover:scale-105 group",
+                      // Student dashboard matching styling
+                      "bg-white dark:bg-neutral-800",
+                      "border border-gray-100 dark:border-neutral-700",
+                      "shadow-soft hover:shadow-medium"
+                    )}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
+                        "bg-gradient-to-r", stat.color,
+                        "shadow-soft"
+                      )}>
+                        <IconComponent className="h-6 w-6 text-white" />
+                      </div>
+                      <div className={cn(
+                        "text-2xl font-bold transition-colors duration-300",
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      )}>
+                        {stat.value}
+                      </div>
                     </div>
-                    <div className={cn(
-                      "text-2xl font-bold transition-colors duration-300",
-                      isDarkMode ? "text-white" : "text-gray-900"
+                    <h3 className={cn(
+                      "font-medium mb-1 transition-colors duration-300",
+                      isDarkMode ? "text-neutral-300" : "text-gray-700"
                     )}>
-                      {stat.value}
-                    </div>
-                  </div>
-                  <h3 className={cn(
-                    "font-medium mb-1 transition-colors duration-300",
-                    isDarkMode ? "text-neutral-300" : "text-gray-700"
-                  )}>
-                    {stat.title}
-                  </h3>
-                  <p className={cn(
-                    "text-sm transition-colors duration-300",
-                    stat.positive ? "text-success-600" : 
-                    isDarkMode ? "text-neutral-500" : "text-gray-500"
-                  )}>
-                    {stat.change}
-                  </p>
-                </Card>
-              ))}
+                      {stat.title}
+                    </h3>
+                    <p className={cn(
+                      "text-sm transition-colors duration-300",
+                      stat.positive ? "text-success-600" : 
+                      isDarkMode ? "text-neutral-500" : "text-gray-500"
+                    )}>
+                      {stat.change}
+                    </p>
+                  </Card>
+                );
+              })}
             </div>
 
             {/* Course Management Section - Student dashboard style */}
@@ -664,7 +672,7 @@ export function TeacherDashboard() {
                   "shadow-soft hover:shadow-medium"
                 )}
               >
-                <div className="text-3xl mb-4">📚</div>
+                <BookOpen className="h-12 w-12 text-primary-500 mb-4" />
                 <h3 className={cn(
                   "text-lg font-semibold mb-2 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
@@ -689,7 +697,7 @@ export function TeacherDashboard() {
                   "shadow-soft hover:shadow-medium"
                 )}
               >
-                <div className="text-3xl mb-4">💬</div>
+                <Users className="h-12 w-12 text-primary-500 mb-4" />
                 <h3 className={cn(
                   "text-lg font-semibold mb-2 transition-colors duration-300",
                   isDarkMode ? "text-white" : "text-gray-900"
