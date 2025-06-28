@@ -17,7 +17,8 @@ import {
   TrendingUp,
   Award,
   Target,
-  Clock
+  Clock,
+  GraduationCap
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -767,7 +768,7 @@ export function TeacherDashboard() {
               
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-soft">
-                  <Video className="h-5 w-5 text-white" />
+                  <GraduationCap className="h-5 w-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
                   <h1 className={cn(
