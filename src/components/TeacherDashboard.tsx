@@ -39,6 +39,7 @@ import { AIAssistant } from './AIAssistant';
 import { ChatInterface } from './ChatInterface';
 import { StartCourseModal } from './StartCourseModal';
 import { ProfileModal } from './ProfileModal';
+import { NotificationPanel } from './NotificationPanel';
 import { cn } from '../utils/cn';
 
 interface NavItem {
@@ -63,6 +64,8 @@ export function TeacherDashboard() {
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [showStartCourseModal, setShowStartCourseModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(3);
   const [courses, setCourses] = useState([
     {
       id: 1,
@@ -153,6 +156,14 @@ export function TeacherDashboard() {
     setShowProfileModal(true);
     // Close sidebar when opening profile modal
     setIsSidebarOpen(false);
+  };
+
+  const handleNotificationClick = () => {
+    setShowNotifications(!showNotifications);
+    // Mark notifications as read when opened
+    if (!showNotifications) {
+      setUnreadNotifications(0);
+    }
   };
 
   if (showCourseStudio) {
@@ -843,10 +854,31 @@ export function TeacherDashboard() {
               </div>
 
               {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-4 w-4" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full animate-pulse"></div>
-              </Button>
+              <div className="relative">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={handleNotificationClick}
+                  className="relative"
+                >
+                  <Bell className="h-4 w-4" />
+                  {unreadNotifications > 0 && (
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-error-500 rounded-full flex items-center justify-center">
+                      <span className="text-xs text-white font-medium">
+                        {unreadNotifications > 9 ? '9+' : unreadNotifications}
+                      </span>
+                    </div>
+                  )}
+                </Button>
+                
+                {/* Notification Panel */}
+                {showNotifications && (
+                  <NotificationPanel 
+                    onClose={() => setShowNotifications(false)}
+                    isDarkMode={isDarkMode}
+                  />
+                )}
+              </div>
 
               {/* Theme Toggle */}
               <Button
