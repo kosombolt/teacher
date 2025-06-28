@@ -16,7 +16,8 @@ import {
   AlertCircle,
   Eye,
   Download,
-  Settings
+  Settings,
+  X
 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
@@ -116,6 +117,27 @@ const mockQuizzes: Quiz[] = [
       startDate: '2025-01-20',
       endDate: '2025-01-30'
     }
+  },
+  {
+    id: '4',
+    title: 'Organic Chemistry Basics',
+    description: 'Introduction to organic chemistry principles',
+    subject: 'Chemistry',
+    topic: 'Organic Chemistry',
+    difficulty: 'medium',
+    type: 'practice',
+    questions: 12,
+    timeLimit: 25,
+    totalPoints: 60,
+    attempts: 15,
+    completions: 12,
+    avgScore: 82,
+    status: 'archived',
+    createdAt: '2024-12-20',
+    availability: {
+      startDate: '2024-12-20',
+      endDate: '2025-01-20'
+    }
   }
 ];
 
@@ -124,20 +146,29 @@ export function QuizManager() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterSubject, setFilterSubject] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [filterDifficulty, setFilterDifficulty] = useState('all');
+  const [filterType, setFilterType] = useState('all');
   const [showQuizCreator, setShowQuizCreator] = useState(false);
   const [showQuestionBank, setShowQuestionBank] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [activeTab, setActiveTab] = useState('all');
 
+  // Get unique subjects for filter
+  const subjects = Array.from(new Set(quizzes.map(q => q.subject)));
+
+  // Apply all filters
   const filteredQuizzes = quizzes.filter(quiz => {
     const matchesSearch = quiz.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          quiz.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSubject = filterSubject === 'all' || quiz.subject === filterSubject;
     const matchesStatus = filterStatus === 'all' || quiz.status === filterStatus;
-    return matchesSearch && matchesSubject && matchesStatus;
+    const matchesDifficulty = filterDifficulty === 'all' || quiz.difficulty === filterDifficulty;
+    const matchesType = filterType === 'all' || quiz.type === filterType;
+    const matchesTab = activeTab === 'all' || quiz.status === activeTab;
+    
+    return matchesSearch && matchesSubject && matchesStatus && matchesDifficulty && matchesType && matchesTab;
   });
-
-  const subjects = Array.from(new Set(quizzes.map(q => q.subject)));
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -189,6 +220,17 @@ export function QuizManager() {
     setQuizzes(prev => prev.filter(q => q.id !== quizId));
   };
 
+  const clearAllFilters = () => {
+    setSearchQuery('');
+    setFilterSubject('all');
+    setFilterStatus('all');
+    setFilterDifficulty('all');
+    setFilterType('all');
+  };
+
+  const hasActiveFilters = searchQuery || filterSubject !== 'all' || filterStatus !== 'all' || 
+                          filterDifficulty !== 'all' || filterType !== 'all';
+
   if (showQuizCreator) {
     return (
       <QuizCreator 
@@ -220,7 +262,7 @@ export function QuizManager() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Enhanced header with better typography */}
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
@@ -249,7 +291,7 @@ export function QuizManager() {
         </div>
       </div>
 
-      {/* Enhanced stats cards with better visual hierarchy */}
+      {/* Stats cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card variant="elevated" className="transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-2">
@@ -319,16 +361,16 @@ export function QuizManager() {
         </Card>
       </div>
 
-      <Tabs defaultValue="all" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="flex items-center justify-between mb-6">
           <TabsList>
-            <TabsTrigger value="all">All Quizzes</TabsTrigger>
-            <TabsTrigger value="published">Published</TabsTrigger>
-            <TabsTrigger value="draft">Drafts</TabsTrigger>
-            <TabsTrigger value="archived">Archived</TabsTrigger>
+            <TabsTrigger value="all">All Quizzes ({quizzes.length})</TabsTrigger>
+            <TabsTrigger value="published">Published ({quizzes.filter(q => q.status === 'published').length})</TabsTrigger>
+            <TabsTrigger value="draft">Drafts ({quizzes.filter(q => q.status === 'draft').length})</TabsTrigger>
+            <TabsTrigger value="archived">Archived ({quizzes.filter(q => q.status === 'archived').length})</TabsTrigger>
           </TabsList>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
               <Input
@@ -338,6 +380,7 @@ export function QuizManager() {
                 className="pl-10 w-64"
               />
             </div>
+            
             <select
               value={filterSubject}
               onChange={(e) => setFilterSubject(e.target.value)}
@@ -353,173 +396,228 @@ export function QuizManager() {
                 <option key={subject} value={subject}>{subject}</option>
               ))}
             </select>
-            <Button variant="outline" size="icon">
-              <Filter className="h-4 w-4" />
-            </Button>
+
+            <select
+              value={filterDifficulty}
+              onChange={(e) => setFilterDifficulty(e.target.value)}
+              className={cn(
+                "px-3 py-2 rounded-xl border transition-all duration-200",
+                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
+                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              )}
+            >
+              <option value="all">All Difficulties</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className={cn(
+                "px-3 py-2 rounded-xl border transition-all duration-200",
+                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
+                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              )}
+            >
+              <option value="all">All Types</option>
+              <option value="practice">Practice</option>
+              <option value="graded">Graded</option>
+            </select>
+
+            {hasActiveFilters && (
+              <Button 
+                variant="outline" 
+                onClick={clearAllFilters}
+                className="gap-2"
+              >
+                <X className="h-4 w-4" />
+                Clear
+              </Button>
+            )}
           </div>
         </div>
 
-        <TabsContent value="all">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredQuizzes.map((quiz) => (
-              <Card 
-                key={quiz.id} 
-                variant="elevated"
-                interactive
-                className="transition-all duration-300 hover:scale-105"
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                        {quiz.title}
-                      </CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-neutral-400 line-clamp-2">
-                        {quiz.description}
-                      </p>
+        {/* Filter Summary */}
+        {hasActiveFilters && (
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-400 mb-4 flex-wrap">
+            <span>Showing {filteredQuizzes.length} of {quizzes.length} quizzes</span>
+            {searchQuery && (
+              <Badge variant="outline" className="gap-1">
+                Search: "{searchQuery}"
+                <button onClick={() => setSearchQuery('')}>
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )}
+            {filterSubject !== 'all' && (
+              <Badge variant="outline" className="gap-1">
+                Subject: {filterSubject}
+                <button onClick={() => setFilterSubject('all')}>
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )}
+            {filterDifficulty !== 'all' && (
+              <Badge variant="outline" className="gap-1">
+                Difficulty: {filterDifficulty}
+                <button onClick={() => setFilterDifficulty('all')}>
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )}
+            {filterType !== 'all' && (
+              <Badge variant="outline" className="gap-1">
+                Type: {filterType}
+                <button onClick={() => setFilterType('all')}>
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )}
+          </div>
+        )}
+
+        <TabsContent value={activeTab}>
+          {filteredQuizzes.length === 0 ? (
+            <div className="text-center py-12">
+              <FileText className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                {hasActiveFilters ? 'No quizzes match your filters' : 'No quizzes found'}
+              </h3>
+              <p className="text-gray-600 dark:text-neutral-400 mb-4">
+                {hasActiveFilters 
+                  ? 'Try adjusting your search criteria or filters'
+                  : 'Start by creating your first quiz'
+                }
+              </p>
+              {hasActiveFilters ? (
+                <Button onClick={clearAllFilters} variant="outline">
+                  Clear All Filters
+                </Button>
+              ) : (
+                <Button onClick={() => setShowQuizCreator(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Quiz
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredQuizzes.map((quiz) => (
+                <Card 
+                  key={quiz.id} 
+                  variant="elevated"
+                  interactive
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                          {quiz.title}
+                        </CardTitle>
+                        <p className="text-sm text-gray-600 dark:text-neutral-400 line-clamp-2">
+                          {quiz.description}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1 ml-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setSelectedQuiz(quiz);
+                            setShowAnalytics(true);
+                          }}
+                          className="h-8 w-8"
+                        >
+                          <BarChart3 className="h-4 w-4" />
+                        </Button>
+                        <div className="relative">
+                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 ml-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => {
-                          setSelectedQuiz(quiz);
-                          setShowAnalytics(true);
-                        }}
-                        className="h-8 w-8"
-                      >
-                        <BarChart3 className="h-4 w-4" />
-                      </Button>
-                      <div className="relative">
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge variant={getStatusColor(quiz.status)}>
+                        {quiz.status}
+                      </Badge>
+                      <Badge variant={getDifficultyColor(quiz.difficulty)}>
+                        {quiz.difficulty}
+                      </Badge>
+                      <Badge variant="outline" className="text-gray-700 dark:text-neutral-300">
+                        {quiz.type}
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-gray-600 dark:text-neutral-400">Questions</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{quiz.questions}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600 dark:text-neutral-400">Time Limit</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{quiz.timeLimit}m</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600 dark:text-neutral-400">Attempts</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{quiz.attempts}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-600 dark:text-neutral-400">Avg Score</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{quiz.avgScore}%</p>
+                      </div>
+                    </div>
+
+                    {quiz.status === 'published' && quiz.completions > 0 && (
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-xs text-gray-600 dark:text-neutral-400">
+                          <span>Completion Rate</span>
+                          <span>{Math.round((quiz.completions / quiz.attempts) * 100)}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-2">
+                          <div 
+                            className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full transition-all duration-500"
+                            style={{ width: `${(quiz.completions / quiz.attempts) * 100}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-neutral-700">
+                      <div className="text-xs text-gray-600 dark:text-neutral-400">
+                        <p>{quiz.subject} • {quiz.topic}</p>
+                        <p>Created {quiz.createdAt}</p>
+                      </div>
+                      <div className="flex items-center gap-1">
                         <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <MoreVertical className="h-4 w-4" />
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-8 w-8"
+                          onClick={() => handleDuplicateQuiz(quiz)}
+                        >
+                          <Copy className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Badge variant={getStatusColor(quiz.status)}>
-                      {quiz.status}
-                    </Badge>
-                    <Badge variant={getDifficultyColor(quiz.difficulty)}>
-                      {quiz.difficulty}
-                    </Badge>
-                    <Badge variant="outline" className="text-gray-700 dark:text-neutral-300">
-                      {quiz.type}
-                    </Badge>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-gray-600 dark:text-neutral-400">Questions</p>
-                      <p className="font-medium text-gray-900 dark:text-white">{quiz.questions}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600 dark:text-neutral-400">Time Limit</p>
-                      <p className="font-medium text-gray-900 dark:text-white">{quiz.timeLimit}m</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600 dark:text-neutral-400">Attempts</p>
-                      <p className="font-medium text-gray-900 dark:text-white">{quiz.attempts}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600 dark:text-neutral-400">Avg Score</p>
-                      <p className="font-medium text-gray-900 dark:text-white">{quiz.avgScore}%</p>
-                    </div>
-                  </div>
-
-                  {quiz.status === 'published' && quiz.completions > 0 && (
-                    <div className="space-y-1">
-                      <div className="flex justify-between text-xs text-gray-600 dark:text-neutral-400">
-                        <span>Completion Rate</span>
-                        <span>{Math.round((quiz.completions / quiz.attempts) * 100)}%</span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-primary-500 to-secondary-500 h-2 rounded-full transition-all duration-500"
-                          style={{ width: `${(quiz.completions / quiz.attempts) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-neutral-700">
-                    <div className="text-xs text-gray-600 dark:text-neutral-400">
-                      <p>{quiz.subject} • {quiz.topic}</p>
-                      <p>Created {quiz.createdAt}</p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-8 w-8"
-                        onClick={() => handleDuplicateQuiz(quiz)}
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="published">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredQuizzes.filter(q => q.status === 'published').map((quiz) => (
-              <Card key={quiz.id} variant="elevated" interactive>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{quiz.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">{quiz.description}</p>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="success">Published</Badge>
-                    <div className="flex items-center gap-1">
-                      <Users className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
-                      <span className="text-sm text-gray-700 dark:text-neutral-300">{quiz.attempts}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="draft">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredQuizzes.filter(q => q.status === 'draft').map((quiz) => (
-              <Card key={quiz.id} variant="elevated" interactive>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{quiz.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">{quiz.description}</p>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="warning">Draft</Badge>
-                    <Button size="sm" className="gap-1">
-                      <Play className="h-3 w-3" />
-                      Publish
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="archived">
-          <div className="text-center py-12">
-            <FileText className="h-12 w-12 text-gray-400 dark:text-neutral-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Archived Quizzes</h3>
-            <p className="text-gray-600 dark:text-neutral-400">Archived quizzes will appear here</p>
-          </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>
