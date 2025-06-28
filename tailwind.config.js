@@ -81,6 +81,7 @@ export default {
         error: {
           50: '#fef2f2',
           100: '#fee2e2',
+          400: '#f87171',
           500: '#ef4444',
           600: '#dc2626',
           700: '#b91c1c',
@@ -123,6 +124,9 @@ export default {
         'scale-in': 'scaleIn 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
         'scale-out': 'scaleOut 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
         'theme-transition': 'themeTransition 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        // New smooth animations for select
+        'in': 'animateIn 0.2s ease-out',
+        'out': 'animateOut 0.15s ease-in',
       },
       keyframes: {
         fadeIn: {
@@ -154,6 +158,26 @@ export default {
           '50%': { opacity: '0.9' },
           '100%': { opacity: '1' },
         },
+        animateIn: {
+          '0%': { 
+            opacity: '0', 
+            transform: 'scale(0.96) translateY(-8px)',
+          },
+          '100%': { 
+            opacity: '1', 
+            transform: 'scale(1) translateY(0)',
+          },
+        },
+        animateOut: {
+          '0%': { 
+            opacity: '1', 
+            transform: 'scale(1) translateY(0)',
+          },
+          '100%': { 
+            opacity: '0', 
+            transform: 'scale(0.96) translateY(-8px)',
+          },
+        },
       },
       // Enhanced transition system
       transitionDuration: {
@@ -175,8 +199,22 @@ export default {
         '22': '5.5rem',   // 88px
         '26': '6.5rem',   // 104px
         '30': '7.5rem',   // 120px
+      },
+      // Enhanced backdrop blur
+      backdropBlur: {
+        'xs': '2px',
+        'sm': '4px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        '2xl': '24px',
+        '3xl': '40px',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
+  ],
 };
