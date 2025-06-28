@@ -50,6 +50,11 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
     account: 'Account'
   };
 
+  // Handle tab change with auto-close behavior
+  const handleTabClick = (tabId: string) => {
+    onTabChange(tabId);
+  };
+
   return (
     <div className={cn(
       "flex flex-col h-full border transition-all duration-300 rounded-2xl backdrop-blur-sm",
@@ -95,7 +100,7 @@ export function Sidebar({ activeTab, onTabChange, isDarkMode, onProfileClick }: 
                 return (
                   <button
                     key={item.id}
-                    onClick={() => onTabChange(item.id)}
+                    onClick={() => handleTabClick(item.id)}
                     className={cn(
                       "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-300 font-medium group relative overflow-hidden",
                       isActive

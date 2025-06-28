@@ -122,6 +122,13 @@ export function TeacherDashboard() {
     }
   }, [isDarkMode]);
 
+  // Auto-close sidebar when tab changes
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    // Close sidebar on mobile/tablet when navigating
+    setIsSidebarOpen(false);
+  };
+
   const handleCreateCourse = (courseData: any) => {
     const newCourse = {
       ...courseData,
@@ -143,6 +150,8 @@ export function TeacherDashboard() {
 
   const handleProfileClick = () => {
     setShowProfileModal(true);
+    // Close sidebar when opening profile modal
+    setIsSidebarOpen(false);
   };
 
   if (showCourseStudio) {
@@ -301,7 +310,7 @@ export function TeacherDashboard() {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setActiveTab('studio');
+                      handleTabChange('studio');
                     }}
                     className={cn(
                       "inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-200 ease-smooth",
@@ -785,7 +794,7 @@ export function TeacherDashboard() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => handleTabChange(item.id)}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 relative",
                       isActive
@@ -873,7 +882,7 @@ export function TeacherDashboard() {
         )}>
           <Sidebar 
             activeTab={activeTab} 
-            onTabChange={setActiveTab}
+            onTabChange={handleTabChange}
             isDarkMode={isDarkMode}
             onToggleTheme={toggleTheme}
             onProfileClick={handleProfileClick}
