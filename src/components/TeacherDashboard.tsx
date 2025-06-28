@@ -509,50 +509,53 @@ export function TeacherDashboard() {
                   title: "Subscription Plans",
                   description: "Set up recurring subscription plans for your courses",
                   action: "Configure Plans",
-                  icon: "💳"
+                  icon: DollarSign
                 },
                 {
                   title: "One-time Purchases", 
                   description: "Sell individual courses or course bundles",
                   action: "Set Pricing",
-                  icon: "🛒"
+                  icon: BookOpen
                 },
                 {
                   title: "Payment Gateway",
                   description: "Connect Stripe, PayPal, or other payment providers", 
                   action: "Connect",
-                  icon: "🔗"
+                  icon: Settings
                 }
-              ].map((item, index) => (
-                <Card 
-                  key={item.title}
-                  variant="elevated"
-                  interactive
-                  className={cn(
-                    "p-6 transition-all duration-300 hover:scale-105 group",
-                    "bg-white dark:bg-neutral-800",
-                    "border border-gray-100 dark:border-neutral-700",
-                    "shadow-soft hover:shadow-medium"
-                  )}
-                >
-                  <div className="text-3xl mb-4">{item.icon}</div>
-                  <h3 className={cn(
-                    "text-lg font-semibold mb-2 transition-colors duration-300",
-                    isDarkMode ? "text-white" : "text-gray-900"
-                  )}>
-                    {item.title}
-                  </h3>
-                  <p className={cn(
-                    "text-sm mb-4 transition-colors duration-300",
-                    isDarkMode ? "text-neutral-400" : "text-gray-600"
-                  )}>
-                    {item.description}
-                  </p>
-                  <Button className="w-full" variant={index === 0 ? "default" : "outline"}>
-                    {item.action}
-                  </Button>
-                </Card>
-              ))}
+              ].map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <Card 
+                    key={item.title}
+                    variant="elevated"
+                    interactive
+                    className={cn(
+                      "p-6 transition-all duration-300 hover:scale-105 group",
+                      "bg-white dark:bg-neutral-800",
+                      "border border-gray-100 dark:border-neutral-700",
+                      "shadow-soft hover:shadow-medium"
+                    )}
+                  >
+                    <IconComponent className="h-12 w-12 text-primary-500 mb-4" />
+                    <h3 className={cn(
+                      "text-lg font-semibold mb-2 transition-colors duration-300",
+                      isDarkMode ? "text-white" : "text-gray-900"
+                    )}>
+                      {item.title}
+                    </h3>
+                    <p className={cn(
+                      "text-sm mb-4 transition-colors duration-300",
+                      isDarkMode ? "text-neutral-400" : "text-gray-600"
+                    )}>
+                      {item.description}
+                    </p>
+                    <Button className="w-full" variant={index === 0 ? "default" : "outline"}>
+                      {item.action}
+                    </Button>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         );

@@ -286,10 +286,10 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                     value={courseData.name}
                     onChange={(e) => setCourseData(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., Introduction to Web Development"
-                    className={errors.name ? "border-red-500" : ""}
+                    error={!!errors.name}
                   />
                   {errors.name && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
                       {errors.name}
                     </p>
@@ -305,10 +305,10 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                     value={courseData.difficulty}
                     onChange={(value) => setCourseData(prev => ({ ...prev, difficulty: value }))}
                     placeholder="Select difficulty"
-                    className={errors.difficulty ? "border-red-500" : ""}
+                    error={!!errors.difficulty}
                   />
                   {errors.difficulty && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
                       {errors.difficulty}
                     </p>
@@ -326,13 +326,14 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                       value={courseData.duration}
                       onChange={(e) => setCourseData(prev => ({ ...prev, duration: e.target.value }))}
                       placeholder="e.g., 20"
-                      className={cn("pl-10", errors.duration ? "border-red-500" : "")}
+                      className="pl-10"
                       min="1"
                       max="500"
+                      error={!!errors.duration}
                     />
                   </div>
                   {errors.duration && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
                       {errors.duration}
                     </p>
@@ -369,14 +370,15 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                           value={courseData.price}
                           onChange={(e) => setCourseData(prev => ({ ...prev, price: e.target.value }))}
                           placeholder="99.00"
-                          className={cn("pl-10", errors.price ? "border-red-500" : "")}
+                          className="pl-10"
                           min="0"
                           step="0.01"
+                          error={!!errors.price}
                         />
                       </div>
                     )}
                     {errors.price && (
-                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                      <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" />
                         {errors.price}
                       </p>
@@ -408,10 +410,10 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                     value={courseData.description}
                     onChange={(e) => setCourseData(prev => ({ ...prev, description: e.target.value }))}
                     placeholder="Describe what students will learn, the skills they'll gain, and what makes this course unique..."
-                    className={cn("min-h-[120px]", errors.description ? "border-red-500" : "")}
+                    className={cn("min-h-[120px]", errors.description && "border-error-500")}
                   />
                   {errors.description && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
                       {errors.description}
                     </p>
@@ -427,10 +429,10 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                     value={courseData.category}
                     onChange={(value) => setCourseData(prev => ({ ...prev, category: value }))}
                     placeholder="Select a category"
-                    className={errors.category ? "border-red-500" : ""}
+                    error={!!errors.category}
                   />
                   {errors.category && (
-                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <p className="text-error-500 text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
                       {errors.category}
                     </p>
@@ -606,7 +608,7 @@ export function StartCourseModal({ open, onOpenChange, onSave }: StartCourseModa
                             variant="ghost"
                             size="sm"
                             onClick={() => removeFile(file.id)}
-                            className="text-red-500 hover:text-red-700"
+                            className="text-error-500 hover:text-error-700"
                           >
                             <X className="h-4 w-4" />
                           </Button>
