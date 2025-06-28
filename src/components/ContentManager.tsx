@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Video, FileText, Search, Filter, MoreVertical, Play, Eye, Edit, Trash2, Download, Share, Settings } from 'lucide-react';
+import { BookOpen, Video, FileText, Search, Filter, MoreVertical, Play, Eye, Edit, Trash2, Download, Share, Settings, X } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
@@ -160,12 +160,12 @@ export function ContentManager({ onStartCourse }: ContentManagerProps) {
       <div className="space-y-4">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
             <Input
               placeholder="Search content..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              leftIcon={<Search className="h-4 w-4" />}
+              variant="modern"
             />
           </div>
           
@@ -173,10 +173,10 @@ export function ContentManager({ onStartCourse }: ContentManagerProps) {
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
             className={cn(
-              "px-3 py-2 rounded-xl border transition-all duration-200",
-              "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-              "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+              "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+              "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+              "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             )}
           >
             <option value="all">All Status</option>
@@ -189,10 +189,10 @@ export function ContentManager({ onStartCourse }: ContentManagerProps) {
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             className={cn(
-              "px-3 py-2 rounded-xl border transition-all duration-200",
-              "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-              "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+              "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+              "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+              "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             )}
           >
             <option value="all">All Types</option>
@@ -204,10 +204,10 @@ export function ContentManager({ onStartCourse }: ContentManagerProps) {
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
             className={cn(
-              "px-3 py-2 rounded-xl border transition-all duration-200",
-              "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-              "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500"
+              "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+              "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+              "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+              "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             )}
           >
             <option value="all">All Categories</option>
@@ -334,7 +334,13 @@ export function ContentManager({ onStartCourse }: ContentManagerProps) {
                         setSelectedItems(prev => prev.filter(id => id !== item.id));
                       }
                     }}
-                    className="rounded"
+                    className={cn(
+                      "w-5 h-5 rounded-lg border-2 border-gray-300 bg-white/80 backdrop-blur-sm transition-all duration-300 ease-smooth",
+                      "hover:border-primary-500 hover:shadow-soft hover:scale-110 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20",
+                      "checked:bg-gradient-to-r checked:from-primary-500 checked:to-secondary-500 checked:border-primary-500",
+                      "dark:border-neutral-600 dark:bg-neutral-800/80 dark:hover:border-primary-400 dark:focus:border-primary-400",
+                      "cursor-pointer"
+                    )}
                   />
                 </div>
               </div>

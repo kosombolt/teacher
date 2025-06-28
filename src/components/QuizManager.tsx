@@ -372,12 +372,13 @@ export function QuizManager() {
           
           <div className="flex items-center gap-4 flex-wrap">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-neutral-400" />
               <Input
                 placeholder="Search quizzes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-64"
+                leftIcon={<Search className="h-4 w-4" />}
+                variant="modern"
+                className="w-64"
               />
             </div>
             
@@ -385,10 +386,10 @@ export function QuizManager() {
               value={filterSubject}
               onChange={(e) => setFilterSubject(e.target.value)}
               className={cn(
-                "px-3 py-2 rounded-xl border transition-all duration-200",
-                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+                "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               )}
             >
               <option value="all">All Subjects</option>
@@ -401,10 +402,10 @@ export function QuizManager() {
               value={filterDifficulty}
               onChange={(e) => setFilterDifficulty(e.target.value)}
               className={cn(
-                "px-3 py-2 rounded-xl border transition-all duration-200",
-                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+                "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               )}
             >
               <option value="all">All Difficulties</option>
@@ -417,10 +418,10 @@ export function QuizManager() {
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
               className={cn(
-                "px-3 py-2 rounded-xl border transition-all duration-200",
-                "bg-white border-gray-300 text-gray-900 hover:border-gray-400",
-                "dark:bg-neutral-800 dark:border-neutral-600 dark:text-white dark:hover:border-neutral-500",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500"
+                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
+                "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               )}
             >
               <option value="all">All Types</option>
