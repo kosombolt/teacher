@@ -297,13 +297,26 @@ export function TeacherDashboard() {
                   </p>
                 </div>
                 <div className="flex gap-3">
-                  <Button 
-                    onClick={() => setShowCourseStudio(true)}
-                    className="gap-2 shadow-medium hover:shadow-large"
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTab('studio');
+                    }}
+                    className={cn(
+                      "inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-200 ease-smooth",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
+                      "disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+                      "hover:scale-[1.02] active:scale-[0.98] transform-gpu",
+                      "bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-medium hover:shadow-large",
+                      "hover:from-primary-600 hover:to-secondary-600 focus:shadow-glow",
+                      "dark:shadow-dark-medium dark:hover:shadow-dark-large",
+                      "h-10 px-4 py-2 gap-2"
+                    )}
                   >
                     <Video className="h-4 w-4" />
                     Course Studio
-                  </Button>
+                  </a>
                   <Button 
                     onClick={() => setShowStartCourseModal(true)}
                     variant="outline"
