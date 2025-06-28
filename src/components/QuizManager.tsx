@@ -362,15 +362,17 @@ export function QuizManager() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="flex items-center justify-between mb-6">
-          <TabsList>
-            <TabsTrigger value="all">All Quizzes ({quizzes.length})</TabsTrigger>
-            <TabsTrigger value="published">Published ({quizzes.filter(q => q.status === 'published').length})</TabsTrigger>
-            <TabsTrigger value="draft">Drafts ({quizzes.filter(q => q.status === 'draft').length})</TabsTrigger>
-            <TabsTrigger value="archived">Archived ({quizzes.filter(q => q.status === 'archived').length})</TabsTrigger>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          {/* Compact Tabs */}
+          <TabsList className="w-fit">
+            <TabsTrigger value="all" className="text-xs px-3 py-1.5">All ({quizzes.length})</TabsTrigger>
+            <TabsTrigger value="published" className="text-xs px-3 py-1.5">Published ({quizzes.filter(q => q.status === 'published').length})</TabsTrigger>
+            <TabsTrigger value="draft" className="text-xs px-3 py-1.5">Drafts ({quizzes.filter(q => q.status === 'draft').length})</TabsTrigger>
+            <TabsTrigger value="archived" className="text-xs px-3 py-1.5">Archived ({quizzes.filter(q => q.status === 'archived').length})</TabsTrigger>
           </TabsList>
           
-          <div className="flex items-center gap-4 flex-wrap">
+          {/* Compact Filters */}
+          <div className="flex items-center gap-2 flex-wrap">
             <div className="relative">
               <Input
                 placeholder="Search quizzes..."
@@ -378,7 +380,7 @@ export function QuizManager() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search className="h-4 w-4" />}
                 variant="modern"
-                className="w-64"
+                className="w-48 h-9 text-sm"
               />
             </div>
             
@@ -386,10 +388,10 @@ export function QuizManager() {
               value={filterSubject}
               onChange={(e) => setFilterSubject(e.target.value)}
               className={cn(
-                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "h-9 px-3 py-2 rounded-xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 text-sm font-medium transition-all duration-300 ease-smooth",
                 "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
                 "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20 min-w-[100px]"
               )}
             >
               <option value="all">All Subjects</option>
@@ -402,13 +404,13 @@ export function QuizManager() {
               value={filterDifficulty}
               onChange={(e) => setFilterDifficulty(e.target.value)}
               className={cn(
-                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "h-9 px-3 py-2 rounded-xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 text-sm font-medium transition-all duration-300 ease-smooth",
                 "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
                 "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20 min-w-[90px]"
               )}
             >
-              <option value="all">All Difficulties</option>
+              <option value="all">All Levels</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
@@ -418,10 +420,10 @@ export function QuizManager() {
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
               className={cn(
-                "h-11 px-4 py-3 rounded-2xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 font-medium transition-all duration-300 ease-smooth",
+                "h-9 px-3 py-2 rounded-xl border border-gray-200/60 bg-white/80 backdrop-blur-sm text-gray-900 text-sm font-medium transition-all duration-300 ease-smooth",
                 "hover:border-gray-300/80 hover:shadow-soft hover:scale-[1.01] focus:border-primary-500/60 focus:shadow-medium focus:scale-[1.01]",
                 "dark:border-neutral-600/60 dark:bg-neutral-800/80 dark:text-white dark:hover:border-neutral-500/80 dark:focus:border-primary-400/60",
-                "focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                "focus:outline-none focus:ring-2 focus:ring-primary-500/20 min-w-[85px]"
               )}
             >
               <option value="all">All Types</option>
@@ -433,9 +435,10 @@ export function QuizManager() {
               <Button 
                 variant="outline" 
                 onClick={clearAllFilters}
-                className="gap-2"
+                size="sm"
+                className="gap-1 h-9 px-3 text-xs"
               >
-                <X className="h-4 w-4" />
+                <X className="h-3 w-3" />
                 Clear
               </Button>
             )}
@@ -447,7 +450,7 @@ export function QuizManager() {
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-400 mb-4 flex-wrap">
             <span>Showing {filteredQuizzes.length} of {quizzes.length} quizzes</span>
             {searchQuery && (
-              <Badge variant="outline" className="gap-1">
+              <Badge variant="outline" className="gap-1 text-xs">
                 Search: "{searchQuery}"
                 <button onClick={() => setSearchQuery('')}>
                   <X className="h-3 w-3" />
@@ -455,7 +458,7 @@ export function QuizManager() {
               </Badge>
             )}
             {filterSubject !== 'all' && (
-              <Badge variant="outline" className="gap-1">
+              <Badge variant="outline" className="gap-1 text-xs">
                 Subject: {filterSubject}
                 <button onClick={() => setFilterSubject('all')}>
                   <X className="h-3 w-3" />
@@ -463,7 +466,7 @@ export function QuizManager() {
               </Badge>
             )}
             {filterDifficulty !== 'all' && (
-              <Badge variant="outline" className="gap-1">
+              <Badge variant="outline" className="gap-1 text-xs">
                 Difficulty: {filterDifficulty}
                 <button onClick={() => setFilterDifficulty('all')}>
                   <X className="h-3 w-3" />
@@ -471,7 +474,7 @@ export function QuizManager() {
               </Badge>
             )}
             {filterType !== 'all' && (
-              <Badge variant="outline" className="gap-1">
+              <Badge variant="outline" className="gap-1 text-xs">
                 Type: {filterType}
                 <button onClick={() => setFilterType('all')}>
                   <X className="h-3 w-3" />
